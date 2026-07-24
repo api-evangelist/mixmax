@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Mixmax REST Contact Groups Snippet Tags API
+  version: '1'
+  description: The Mixmax REST API provides lightweight, real-time access to Mixmax data — contacts, contact groups and notes, sequences and their recipients, file requests, meeting summaries and transcripts, and snippet tags. It is optimized for real-time interactions and is explicitly not designed for bulk exports or high-volume data synchronization. Authentication is via an API token (X-API-Token header or apiToken query parameter) created under Settings > Integrations. Faithful capture of the documented reference at https://developer.mixmax.com/ — response schemas are intentionally left open where the provider does not publish them (no fabrication).
+  contact:
+    name: Mixmax Developer Support
+    url: https://developer.mixmax.com/
+  x-apievangelist:
+    method: generated
+    source: https://developer.mixmax.com/ (llms.txt + reference pages)
+    generated: '2026-07-20'
+servers:
+- url: https://api.mixmax.com/v1
+  description: Mixmax production REST API
+security:
+- apiToken: []
+tags:
+- name: Snippet Tags
+  description: Snippet tag management
+paths:
+  /snippettags/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Snippet tag id
+    delete:
+      operationId: deleteSnippetTag
+      summary: Delete a snippet tag
+      tags:
+      - Snippet Tags
+      responses:
+        '200':
+          description: Deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Missing or invalid API token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: X-API-Token
+      description: API token created under Mixmax Settings > Integrations. May alternatively be supplied as the apiToken query-string parameter.
