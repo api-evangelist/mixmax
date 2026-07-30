@@ -1,7 +1,29 @@
 aid: mixmax
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mixmax.png
 name: Mixmax
-description: 'Mixmax is a company surfaced as a portfolio company of creandum and added to the API Evangelist
-  network as a stub for enrichment. Sector: saas. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Mixmax is an AI-native sales engagement and execution platform that lives
+  inside Gmail and Outlook, helping sales, customer success, recruiting, and
+  other relationship-driven teams run their entire customer journey without
+  context-switching. It combines email tracking and templates, multi-channel
+  sequences, one-click scheduling, CRM automation, engagement signals, and
+  Meeting Copilot summaries and transcripts. Mixmax exposes a public REST API
+  (api.mixmax.com/v1) for lightweight real-time access to contacts, contact
+  groups, sequences and recipients, file requests, meeting summaries and
+  transcripts, and snippet tags, authenticated with an API token, plus message
+  integrations and Sidebar/Widget SDKs for extending the product surface.
 url: https://raw.githubusercontent.com/api-evangelist/mixmax/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,16 +33,224 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
 - Saas
-apis: []
+- Sales Engagement
+- Email
+- Sales
+- CRM
+- Productivity
+- Meetings
+- Sequences
+apis:
+- aid: mixmax:mixmax-contact-groups-api
+  name: Mixmax Contact Groups API
+  description: Contact groups you own or that are shared with you — deprecated
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - Contact Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-contact-groups-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
+- aid: mixmax:mixmax-contacts-api
+  name: Mixmax Contacts API
+  description: Mixmax Contacts (people you've emailed) — deprecated resource group
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-contacts-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
+- aid: mixmax:mixmax-file-requests-api
+  name: Mixmax File Requests API
+  description: File requests you've sent out
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - File Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-file-requests-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
+- aid: mixmax:mixmax-meetings-api
+  name: Mixmax Meetings API
+  description: Meeting Copilot summaries and transcripts (requires mixmaxApi feature)
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - Meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-meetings-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
+- aid: mixmax:mixmax-sequences-api
+  name: Mixmax Sequences API
+  description: Sequences you have access to, and their recipients
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - Sequences
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-sequences-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
+- aid: mixmax:mixmax-snippet-tags-api
+  name: Mixmax Snippet Tags API
+  description: Snippet tag management
+  humanURL: https://developer.mixmax.com/
+  baseURL: https://api.mixmax.com/v1
+  tags:
+  - Snippet Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/mixmax-snippet-tags-api-openapi.yml
+  - type: Authentication
+    url: authentication/mixmax-authentication.yml
+  - type: Conventions
+    url: conventions/mixmax-conventions.yml
+  - type: RateLimits
+    url: rate-limits/mixmax-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/mixmax-lifecycle.yml
+  - type: DataModel
+    url: data-model/mixmax-data-model.yml
+  - type: Conformance
+    url: conformance/mixmax-conformance.yml
+  - type: LLMsTxt
+    url: llms/mixmax-llms.txt
+  - type: WellKnown
+    url: well-known/mixmax-well-known.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/mixmax-agentic-access.yml
+- type: TrustCenter
+  url: security/mixmax-trust-center.yml
+- type: Compliance
+  url: https://www.mixmax.com/security
+- type: DomainSecurity
+  url: security/mixmax-domain-security.yml
+- type: Packages
+  url: packages/mixmax-packages.yml
+- type: SDKs
+  url: packages/mixmax-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: StatusPage
+  url: https://status.mixmax.com/
+- type: DeveloperPortal
+  url: https://developer.mixmax.com/
+- type: Documentation
+  url: https://developer.mixmax.com/docs/getting-started
+- type: APIReference
+  url: https://developer.mixmax.com/reference/getting-started-with-the-api
+- type: GettingStarted
+  url: https://developer.mixmax.com/reference/getting-started-with-the-api
+- type: GitHubOrganization
+  url: https://github.com/mixmaxhq
+- type: Support
+  url: https://success.mixmax.com/
+- type: Blog
+  url: https://www.mixmax.com/blog
+- type: Pricing
+  url: https://www.mixmax.com/pricing
+- type: SignUp
+  url: https://app.mixmax.com/signup
+- type: Login
+  url: https://app.mixmax.com/dashboard
+- type: TermsOfService
+  url: https://www.mixmax.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.mixmax.com/legal/privacy-policy
 - type: Website
   url: https://www.mixmax.com/
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1
