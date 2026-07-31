@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.mixmax.com/reference/getting-started-with-the-api
+docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+rate_limits:
+  - name: global
+    limit_count: 120
+    window: 60s
+    scope: per IP address and user
+    exceeded_status: 429
+    headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+      - X-RateLimit-Reset
+    notes: >-
+      A single global limit of 120 requests per rolling 60-second window applies
+      per IP address and user. Exceeding it returns HTTP 429; inspect the
+      X-RateLimit-* response headers to pace requests.

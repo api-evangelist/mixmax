@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/mixmax-openapi.yml + https://developer.mixmax.com/
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: REST API authenticates with an API token (apiKey), no oauth2 scheme documented.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors are plain JSON with a `message` field, not application/problem+json.
+  - id: cursor-pagination
+    conforms: true
+    evidence: Collections return results/next/previous with hasNext/hasPrevious cursors.
+  - id: rate-limit-headers
+    conforms: true
+    evidence: Responses expose X-RateLimit-Limit/Remaining/Reset and 429 on exceed.
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: Deprecated endpoints are labeled in docs but no Sunset header contract is published.
+  - id: soc2
+    conforms: true
+    evidence: SOC 2 named on https://www.mixmax.com/security
+  - id: hipaa
+    conforms: true
+    evidence: HIPAA named on https://www.mixmax.com/security
+  - id: gdpr
+    conforms: true
+    evidence: GDPR named on https://www.mixmax.com/security

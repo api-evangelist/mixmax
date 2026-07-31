@@ -1,0 +1,57 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/mixmax-openapi.yml + https://developer.mixmax.com/
+entities:
+  - name: Contact
+    id_field: _id
+    description: A person you've emailed using Mixmax.
+    operations: [listContacts, createContacts, queryContacts, getContact, updateContact, deleteContact]
+  - name: ContactNote
+    id_field: noteId
+    description: A note attached to a contact; only its creator can edit or delete it.
+    operations: [listContactNotes, createContactNote, updateContactNote, deleteContactNote]
+  - name: ContactGroup
+    id_field: id
+    description: A group of contacts you own or that is shared with you.
+    operations: [listContactGroups, createContactGroup, getContactGroup, updateContactGroup, deleteContactGroup, listContactGroupMembers, addContactGroupMember, removeContactGroupMember]
+  - name: Sequence
+    id_field: id
+    description: A multi-stage outreach sequence you have access to.
+    operations: [listSequences]
+  - name: SequenceRecipient
+    id_field: id
+    description: An activated recipient enrolled in a sequence.
+    operations: [listSequenceRecipients]
+  - name: MeetingSummary
+    id_field: _id
+    description: A Meeting Copilot summary; requires the mixmaxApi feature.
+    operations: [searchMeetingSummaries]
+  - name: MeetingTranscript
+    id_field: id
+    description: The full transcript for a meeting, keyed by meeting summary id.
+    operations: [getMeetingTranscript]
+  - name: FileRequest
+    id_field: id
+    description: A file request you've sent out.
+    operations: [listFileRequests]
+  - name: SnippetTag
+    id_field: id
+    description: A tag applied to snippets.
+    operations: [deleteSnippetTag]
+relationships:
+  - from: ContactNote
+    to: Contact
+    type: belongs_to
+    via: contact _id (path)
+  - from: ContactGroup
+    to: Contact
+    type: has_many
+    via: contactgroups/{id}/contacts membership
+  - from: Sequence
+    to: SequenceRecipient
+    type: has_many
+    via: sequences/{id}/recipients
+  - from: MeetingTranscript
+    to: MeetingSummary
+    type: belongs_to
+    via: summary _id (path)

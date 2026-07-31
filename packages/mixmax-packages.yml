@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.npmjs.com/org/mixmaxhq
+packages:
+  - language: javascript
+    registry: npm
+    name: "@mixmaxhq/sdk"
+    url: https://www.npmjs.com/package/@mixmaxhq/sdk
+    repository: https://github.com/mixmaxhq/mixmax-sdk-js
+    install: npm install @mixmaxhq/sdk
+    official: true
+    notes: First-party Mixmax JavaScript SDK, published under the official mixmaxhq npm org.
+  - language: javascript
+    registry: npm
+    name: "@mixmaxhq/context-sdk"
+    url: https://www.npmjs.com/package/@mixmaxhq/context-sdk
+    install: npm install @mixmaxhq/context-sdk
+    official: true
+    notes: First-party SDK for the Mixmax message-integration / Sidebar context surface.
+community_packages:
+  - language: javascript
+    registry: npm
+    name: mixmax-api
+    url: https://www.npmjs.com/package/mixmax-api
+    official: false
+  - language: javascript
+    registry: npm
+    name: "@pipedream/mixmax"
+    url: https://www.npmjs.com/package/@pipedream/mixmax
+    official: false

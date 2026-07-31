@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.mixmax.com/reference/getting-started-with-the-api
+docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+summary:
+  types: [apiKey]
+  api_key_in: [header, query]
+  oauth2_flows: []
+schemes:
+  - name: apiToken
+    type: apiKey
+    in: header
+    parameter: X-API-Token
+    alt_in: query
+    alt_parameter: apiToken
+    description: >-
+      Mixmax authenticates every REST request with an API token. Create the token
+      under Settings > Integrations (app.mixmax.com/dashboard/settings/personal/integrations);
+      it is displayed only once. Send it as the X-API-Token request header, or as
+      the apiToken query-string parameter.
+    sources: [openapi/mixmax-openapi.yml, https://developer.mixmax.com/reference/getting-started-with-the-api]
+notes:
+  - Some endpoints (meeting summaries/transcripts) additionally require the workspace-level mixmaxApi feature to be enabled by an admin.
+  - No OAuth 2.0 / OpenID Connect flow is documented for the public REST API; message-integration surfaces use their own SDK context.

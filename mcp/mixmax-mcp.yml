@@ -1,0 +1,45 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/mixmax-openapi.yml
+notes: >-
+  Mixmax does not publish an official first-party hosted MCP server. Community
+  MCP servers exist on npm (e.g. @mindstone-engineering/mcp-server-mixmax) and a
+  Mixmax connector is available via Pipedream (@pipedream/mixmax), but neither is
+  Mixmax-official. The tool list below is a candidate derived one-to-one from the
+  documented REST operations.
+community_servers:
+  - name: "@mindstone-engineering/mcp-server-mixmax"
+    registry: npm
+    official: false
+  - name: "@pipedream/mixmax"
+    registry: npm
+    official: false
+server:
+  name: mixmax
+  transport: http
+tools:
+  - name: list_contacts
+    description: List Mixmax Contacts
+    source_operation: openapi/mixmax-openapi.yml#listContacts
+  - name: query_contacts
+    description: Search for matching contacts across Mixmax, Google directory, and Salesforce
+    source_operation: openapi/mixmax-openapi.yml#queryContacts
+  - name: list_contact_groups
+    description: List contact groups you can access
+    source_operation: openapi/mixmax-openapi.yml#listContactGroups
+  - name: list_sequences
+    description: List sequences you have access to
+    source_operation: openapi/mixmax-openapi.yml#listSequences
+  - name: list_sequence_recipients
+    description: List activated recipients of a sequence
+    source_operation: openapi/mixmax-openapi.yml#listSequenceRecipients
+  - name: search_meeting_summaries
+    description: Search meeting summaries (requires mixmaxApi feature)
+    source_operation: openapi/mixmax-openapi.yml#searchMeetingSummaries
+  - name: get_meeting_transcript
+    description: Retrieve a meeting transcript by summary id
+    source_operation: openapi/mixmax-openapi.yml#getMeetingTranscript
+  - name: list_file_requests
+    description: List file requests you have sent
+    source_operation: openapi/mixmax-openapi.yml#listFileRequests

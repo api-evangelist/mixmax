@@ -1,0 +1,33 @@
+# Mixmax Developer Documentation
+
+> The Mixmax Developer portal allows you to integrate functionality into the Mixmax platform.
+
+## Guides
+- [Introduction: Message Integrations](https://developer.mixmax.com/docs/getting-started.md): Learn how to build Mixmax Integrations
+
+## API Reference
+- [Introduction: REST API](https://developer.mixmax.com/reference/getting-started-with-the-api.md)
+- [/contacts [deprecated]](https://developer.mixmax.com/reference/contacts.md): Lists all your Mixmax Contacts (ie people you've emailed using Mixmax). Does not currently return contacts shared with you via shared contact groups (a performance limitiation).
+- [/contacts [deprecated]](https://developer.mixmax.com/reference/contacts-1.md): Create one or more contacts
+- [/contacts/query [deprecated]](https://developer.mixmax.com/reference/contactsquery.md): Search for matching contacts. This API queries across different sources including mixmax, google directory, and salesforce (contacts, leads, accounts, and opportunities). This differs from `GET /contacts` which only searches Mixmax Contacts.
+- [/contacts/:id [deprecated]](https://developer.mixmax.com/reference/contactsid.md): Retrieves a contact by _id
+- [/contacts/:id [deprecated]](https://developer.mixmax.com/reference/contactsid-1.md): Update a specific contact
+- [/contacts/:id [deprecated]](https://developer.mixmax.com/reference/contactsid-2.md): Delete a specific contact
+- [/contacts/:id/notes [deprecated]](https://developer.mixmax.com/reference/contactsidnotes.md): Lists notes for a contact. These can be seen in the Mixmax Dashboard under 'Contacts'.
+- [/contacts/:id/notes [deprecated]](https://developer.mixmax.com/reference/contactsidnotes-1.md)
+- [/contacts/:id/notes/:noteId [deprecated]](https://developer.mixmax.com/reference/contactsidnotesnoteid.md): Updates a contact note.  Only the creator of the note can edit it. The contact note will show "(edited)" in the UI.
+- [/contacts/:id/notes/:noteid [deprecated]](https://developer.mixmax.com/reference/contactscontactidnotes.md): Deletes a note. Only the creator of the note can delete it.
+- [/contactgroups [deprecated]](https://developer.mixmax.com/reference/contactgroups.md): Contact groups that you have access to (either that you have created, or that have been shared with you)
+- [/contactgroups [deprecated]](https://developer.mixmax.com/reference/contactgroups-1.md): Create a contact group
+- [/contactgroups/:id [deprecated]](https://developer.mixmax.com/reference/contactgroupsid.md): Fetch a specific contact group
+- [/contactgroups/:id [deprecated]](https://developer.mixmax.com/reference/contactgroupsid-1.md): Edit a Contact Group
+- [/contactgroups/:id [deprecated]](https://developer.mixmax.com/reference/contactgroupsid-2.md): Delete a Contact Group
+- [/contactgroups/:id/contacts [deprecated]](https://developer.mixmax.com/reference/contactgroupsidcontacts.md): Returns membership for a contact group
+- [/contactgroups/:id/contacts [deprecated]](https://developer.mixmax.com/reference/contactgroupsidcontacts-1.md): Adds a Contact to a Contact Group. You must own the group to add contacts to it.
+- [/contactgroups/:id/contacts/:contactId [deprecated]](https://developer.mixmax.com/reference/contactgroupsidcontactscontactid.md): Remove a Contact from a Contact Group
+- [/filerequests](https://developer.mixmax.com/reference/filerequests.md): Returns File Requests that you've sent out
+- [/meetings/summaries/search](https://developer.mixmax.com/reference/meetingssummariessearch.md): Search and retrieve meeting summaries with optional filters. Returns summaries for meetings where the authenticated user is the owner, or if workspace-wide access is enabled via admin settings, workspace admins can access summaries from all workspace members' meetings.  **Required Feature:** `mixmaxApi` (API access must be enabled for your workspace)  **Workspace Access:** If "Allow workspace-wide transcript access via API" is enabled in Admin Settings > Meeting Copilot, workspace admins can access summaries from all workspace members' meetings.
+- [/meetings/transcripts/:id](https://developer.mixmax.com/reference/meetingstranscriptsid.md): Retrieve the full transcript for a specific meeting by its summary ID. Returns the complete transcript with speaker identification and timestamps.  **Required Feature:** `mixmaxApi` (API access must be enabled for your workspace)  **Workspace Access:** If "Allow workspace-wide transcript access via API" is enabled in Admin Settings > Meeting Copilot, workspace admins can access transcripts from all workspace members' meetings.  **Note:** The `id` parameter is the meeting summary ID (the `_id` field from the `/meetings/summaries/search` response).
+- [/sequences](https://developer.mixmax.com/reference/sequences.md): Returns a list of sequences that you have access to
+- [/sequences/:id/recipients](https://developer.mixmax.com/reference/sequencesidrecipients.md): Retrieves the recipients belonging to the specified sequence. The list of recipients only includes recipients that were activated, it does not include recipients currently in the draft area.  **Note**: This endpoint uses different pagination than most API endpoints. Rather than receiving an object with "results" and "next" keys, you will receive a single array of results as a response. Use the `offset` query parameter to fetch the next page of results. For example, if you used `limit=50` to retrieve the first page, then use `offset=50` to retrieve the second page, `offset=100` to retrieve the third page, and so on. You're limited to 10,000 total records. So if you're requesting with a `offset=9999`, you can only request `limit=1`.
+- [/snippettags/:id](https://developer.mixmax.com/reference/snippettags-id-delete.md): Deletes a snippet tag

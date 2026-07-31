@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/mixmax-openapi.yml + conventions/mixmax-conventions.yml
+skills:
+  - file: mixmax-search-contacts.md
+    name: Search and read Mixmax contacts
+    api: openapi/mixmax-openapi.yml
+    operations: [queryContacts, listContacts, getContact]
+  - file: mixmax-pull-meeting-intelligence.md
+    name: Pull Mixmax meeting summaries and transcripts
+    api: openapi/mixmax-openapi.yml
+    operations: [searchMeetingSummaries, getMeetingTranscript]
+  - file: mixmax-audit-sequence-recipients.md
+    name: List sequences and page through their recipients
+    api: openapi/mixmax-openapi.yml
+    operations: [listSequences, listSequenceRecipients]

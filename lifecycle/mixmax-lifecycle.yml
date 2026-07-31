@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.mixmax.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.mixmax.com/v1
+  docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    Mixmax marks superseded endpoints as "deprecated" in the developer reference
+    (the entire Contacts and Contact Groups resource families are currently
+    flagged for deprecation), but does not publish a formal dated deprecation /
+    sunset policy or advertise RFC 8594 Sunset headers.
+status_page: https://status.mixmax.com/
+support: https://success.mixmax.com/
+deprecated_operations:
+  - openapi/mixmax-openapi.yml#listContacts
+  - openapi/mixmax-openapi.yml#createContacts
+  - openapi/mixmax-openapi.yml#queryContacts
+  - openapi/mixmax-openapi.yml#getContact
+  - openapi/mixmax-openapi.yml#updateContact
+  - openapi/mixmax-openapi.yml#deleteContact
+  - openapi/mixmax-openapi.yml#listContactNotes
+  - openapi/mixmax-openapi.yml#createContactNote
+  - openapi/mixmax-openapi.yml#updateContactNote
+  - openapi/mixmax-openapi.yml#deleteContactNote
+  - openapi/mixmax-openapi.yml#listContactGroups
+  - openapi/mixmax-openapi.yml#createContactGroup
+  - openapi/mixmax-openapi.yml#getContactGroup
+  - openapi/mixmax-openapi.yml#updateContactGroup
+  - openapi/mixmax-openapi.yml#deleteContactGroup
+  - openapi/mixmax-openapi.yml#listContactGroupMembers
+  - openapi/mixmax-openapi.yml#addContactGroupMember
+  - openapi/mixmax-openapi.yml#removeContactGroupMember

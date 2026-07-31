@@ -1,0 +1,52 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.mixmax.com/reference/getting-started-with-the-api
+docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+authentication:
+  style: api-key
+  transport: header
+  header: X-API-Token
+  alt: query parameter apiToken
+  ref: authentication/mixmax-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    Mixmax does not document an idempotency-key header or a request-replay
+    contract for the REST API. Writes are not advertised as idempotent.
+pagination:
+  style: cursor
+  default_limit: 50
+  max_limit: 300
+  request_params: [limit, next, previous]
+  response_fields: [results, next, previous, hasNext, hasPrevious]
+  exceptions:
+    - endpoint: /sequences/{id}/recipients
+      style: offset
+      params: [limit, offset]
+      note: Returns a bare array (not the results/next envelope); capped at 10,000 total records.
+rate_limiting:
+  limit: 120
+  window_seconds: 60
+  scope: per IP address and user
+  retry_status: 429
+  response_headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  ref: rate-limits/mixmax-rate-limits.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.mixmax.com/v1
+error_envelope:
+  format: json
+  shape: '{ "message": "<human-readable error>" }'
+  standard: http-status-codes
+  problem_json: false
+metadata:
+  expand: >-
+    Several endpoints accept an `expand` parameter to inline related fields
+    (e.g. contacts: firstName, lastName, groups, notes, salesforce; sequences: stages).
+request_tracing:
+  documented: false
+scope_of_api:
+  note: >-
+    The REST API is optimized for lightweight, real-time interactions and is
+    explicitly not intended for bulk export or high-volume data synchronization.
