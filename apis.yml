@@ -207,6 +207,10 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: mcp/mixmax-mcp.yml
+- type: Overlay
+  url: overlays/mixmax-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/mixmax-agentic-access.yml
 - type: TrustCenter
