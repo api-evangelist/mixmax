@@ -23,7 +23,12 @@ description: >-
   (api.mixmax.com/v1) for lightweight real-time access to contacts, contact
   groups, sequences and recipients, file requests, meeting summaries and
   transcripts, and snippet tags, authenticated with an API token, plus message
-  integrations and Sidebar/Widget SDKs for extending the product surface.
+  integrations and Sidebar/Widget SDKs for extending the product surface. Since
+  April 2026 Mixmax also runs a first-party remote MCP server at
+  mcp.mixmax.com/mcp — read-only, OAuth 2.0 with PKCE against its own OpenID
+  Connect provider, scoped meetings:read — together with six installable Claude
+  Skills, a rule-driven incoming and outgoing webhook surface with a documented
+  event catalog, and published per-tier pricing.
 url: https://raw.githubusercontent.com/api-evangelist/mixmax/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -33,10 +38,14 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-13'
 tags:
 - Company
 - Saas
+- MCP
+- Agents
+- Webhooks
+- OAuth
 - Sales Engagement
 - Email
 - Sales
@@ -253,8 +262,20 @@ common:
   url: https://www.mixmax.com/legal/privacy-policy
 - type: Website
   url: https://www.mixmax.com/
+- type: ToolCrosswalk
+  url: mcp/mixmax-tool-crosswalk.yml
+- type: OAuthScopes
+  url: scopes/mixmax-scopes.yml
+- type: Webhooks
+  url: asyncapi/mixmax-webhooks.yml
+- type: Plans
+  url: plans/mixmax-plans-pricing.yml
+- type: ChangeLog
+  url: changelog/mixmax-changelog.yml
+- type: ErrorCatalog
+  url: errors/mixmax-problem-types.yml
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 16
+  artifacts_added: 18
   pass: local-v1
