@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/mixmax-mcp.yml + openapi/_original/mixmax-openapi.yml + https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server
+note: >-
+  Binds each named Mixmax MCP tool to the REST operation(s) that back it. The live tools/list is
+  OAuth-gated (401 + RFC 9728 challenge), so tool input schemas could not be introspected; the
+  mapping below is by name and documented semantics, and confidence is set accordingly. Nothing
+  here is invented — every tool name comes from Mixmax's own MCP documentation and every
+  operationId comes from the captured OpenAPI.
+
+surfaces:
+  openapi:
+    file: openapi/_original/mixmax-openapi.yml
+    base_url: https://api.mixmax.com/v1
+    auth: X-API-Token (static, unscoped)
+    gated: false
+  mcp:
+    url: https://mcp.mixmax.com/mcp
+    transport: streamable-http
+    auth: OAuth 2.0 authorization code + PKCE, scope meetings:read
+    gated: true
+    gated_detail: tools/list returns 401; schemas require an authenticated introspection
+  graphql:
+    published: false
+
+coverage:
+  mcp_tools_named: 5
+  mapped_to_rest: 2
+  mcp_only: 3
+  rest_operations_total: 24
+  rest_only: 22
+
+crosswalk:
+- tool: search_meeting_summaries
+  category: meetings
+  rest: [searchMeetingSummaries]
+  binding: direct
+  confidence: high
+  note: >-
+    Same name, same resource. The REST operation GET /meetings/summaries/search searches meeting
+    summaries and requires the workspace mixmaxApi feature; the MCP tool is the scoped,
+    OAuth-authorized equivalent. Its real inputSchema should mirror this operation's query
+    parameters.
+- tool: list_sequences
+  category: sequences
+  rest: [listSequences]
+  binding: direct
+  confidence: high
+  note: >-
+    GET /sequences accepts name, expand and folder query parameters; Mixmax documents the MCP
+    tool as filterable by name and folder, which matches.
+
+mcp_only:
+- tool: get_sequence
+  reason: >-
+    No public REST operation retrieves a single sequence by id. The OpenAPI exposes GET /sequences
+    (list, with expand=stages) and GET /sequences/{id}/recipients, but no GET /sequences/{id}.
+    The tool composes stage detail and recipient counts that a REST caller would have to assemble
+    from two calls plus expand.
+- tool: get_sequence_insights
+  reason: >-
+    Per-stage open, click, reply and bounce rates are not exposed by any documented REST
+    operation. This is analytics the public API does not publish at all.
+- tool: find_contact_in_sequences
+  reason: >-
+    No REST operation answers "is this email enrolled in any of my sequences". A REST caller
+    would have to list every sequence and page every recipient set (capped at 10,000 records
+    each) to approximate it. This is the clearest case where the MCP surface is strictly more
+    capable than the API.
+
+rest_only:
+- operations: [listContacts, createContacts, queryContacts, getContact, updateContact, deleteContact,
+    listContactNotes, createContactNote, updateContactNote, deleteContactNote]
+  reason: Contacts family — deprecated in the developer reference and not exposed as MCP tools.
+- operations: [listContactGroups, createContactGroup, getContactGroup, updateContactGroup,
+    deleteContactGroup, listContactGroupMembers, addContactGroupMember, removeContactGroupMember]
+  reason: Contact Groups family — deprecated in the developer reference and not exposed as MCP tools.
+- operations: [listFileRequests]
+  reason: File requests have no MCP tool.
+- operations: [getMeetingTranscript]
+  reason: >-
+    Mixmax states the MCP server serves transcripts, but names no tool identifier for it in the
+    docs. Recorded as rest_only rather than guessing a tool name.
+- operations: [listSequenceRecipients]
+  reason: >-
+    No named MCP tool. get_sequence reports recipient counts, and find_contact_in_sequences answers
+    the membership question, but neither is documented as paging the recipient list.
+- operations: [deleteSnippetTag]
+  reason: >-
+    Destructive write. The MCP server is read-only by design, so no tool exists or should.
+
+unmapped_capabilities_note: >-
+  Mixmax describes these MCP capabilities in prose without naming a tool identifier. They are
+  listed here rather than in crosswalk[] because binding an unnamed capability to an operationId
+  would be a guess.
+unmapped_capabilities:
+  - capability: Search calendar events by date range, attendee email, or domain
+    rest: []
+    note: No REST calendar-event operation is published.
+  - capability: Check meeting assistant settings and meeting type configurations
+    rest: []
+    note: No REST settings operation is published.
+  - capability: Monitor daily send volume against the sending limit
+    rest: []
+  - capability: Validate a sequence before launching
+    rest: []
+
+observations:
+- >-
+    Only 2 of 5 named MCP tools have a REST equivalent. The Mixmax MCP server is not a wrapper
+    over the public API — it exposes sequence analytics and enrollment lookup that the REST API
+    does not publish at all.
+- >-
+    Conversely 22 of 24 REST operations have no MCP tool, but 18 of those are the deprecated
+    Contacts and Contact Groups families. Excluding deprecated operations, the REST-only residue
+    is small: file requests, transcript fetch by id, recipient paging and snippet-tag deletion.
+- >-
+    An agent that needs contact CRUD must still use the REST API with a static unscoped token.
+    There is no scoped, revocable path to that data.

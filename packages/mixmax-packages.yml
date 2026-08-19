@@ -1,30 +1,109 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: https://www.npmjs.com/org/mixmaxhq
+source: https://registry.npmjs.org (metadata endpoint) + https://github.com/mixmaxhq
+note: >-
+  Versions and dates below are read from the npm registry metadata endpoint on the generated
+  date, not from prose. Ownership was confirmed by comparing the npm maintainer set — both
+  first-party packages carry the identical 20-account Mixmax maintainer list
+  (mixmax-codeship, mixmax_it, pedro-mixmax, grahammixmax, …).
+sdk_count: 2
+languages: [javascript]
+registries_checked: [npm]
+registries_absent: [pypi, rubygems, packagist, crates.io, nuget, maven-central, pkg.go.dev]
+absent_note: >-
+  No Mixmax client library exists in any registry other than npm. There is no Python, Ruby, Go,
+  Java, PHP, .NET or Rust SDK — first-party or otherwise — despite the REST API being a plain
+  token-authenticated JSON API.
+
 packages:
   - language: javascript
     registry: npm
     name: "@mixmaxhq/sdk"
     url: https://www.npmjs.com/package/@mixmaxhq/sdk
     repository: https://github.com/mixmaxhq/mixmax-sdk-js
+    homepage: https://github.com/mixmaxhq/mixmax-sdk-js
     install: npm install @mixmaxhq/sdk
     official: true
-    notes: First-party Mixmax JavaScript SDK, published under the official mixmaxhq npm org.
+    license: MIT
+    version: 2.0.7
+    published: '2022-03-23'
+    release_count: 18
+    description: Our client-side SDK.
+    notes: >-
+      First-party client-side SDK for the Mixmax message-integration surface (Enhancements,
+      Slash Commands, Link Resolvers). DECAY SIGNAL: last published 2022-03-23 — more than four
+      years before this probe, and predating both the /meetings endpoints and the MCP server.
+      The repo itself was last pushed 2026-07-03, so the code is maintained but nothing has been
+      released to npm.
+
   - language: javascript
     registry: npm
     name: "@mixmaxhq/context-sdk"
     url: https://www.npmjs.com/package/@mixmaxhq/context-sdk
+    repository: null
     install: npm install @mixmaxhq/context-sdk
     official: true
-    notes: First-party SDK for the Mixmax message-integration / Sidebar context surface.
+    license: null
+    version: 1.0.0
+    published: '2026-05-19'
+    release_count: 1
+    description: >-
+      Typed client for Mixmax context-api — list/get/create/update/delete/bundle context blocks.
+      Server-side callers use SigV4-signed Function URL; browser callers use the cookie-authenticated
+      public gateway. Transport is swappable.
+    notes: >-
+      Published under the official mixmaxhq scope with the same Mixmax maintainer set. Single
+      release, no public repository, no license field, and it targets a "context-api" that is not
+      documented anywhere on developer.mixmax.com — treat as an internal/preview surface rather
+      than a supported public SDK.
+
 community_packages:
   - language: javascript
     registry: npm
     name: mixmax-api
     url: https://www.npmjs.com/package/mixmax-api
+    repository: https://github.com/ttacon/mixmax-api
     official: false
+    version: 1.5.0
+    published: '2020-12-14'
+    notes: Third-party REST wrapper. Last published 2020 — abandoned.
   - language: javascript
     registry: npm
     name: "@pipedream/mixmax"
     url: https://www.npmjs.com/package/@pipedream/mixmax
     official: false
+    version: 0.0.5
+    published: '2025-03-21'
+    notes: Pipedream connector components, not a general client library.
+  - language: javascript
+    registry: npm
+    name: "@mindstone-engineering/mcp-server-mixmax"
+    url: https://www.npmjs.com/package/@mindstone-engineering/mcp-server-mixmax
+    repository: https://github.com/nspr-io/mcp-servers
+    official: false
+    version: 0.2.1
+    published: '2026-04-29'
+    notes: >-
+      Third-party stdio MCP server wrapping the REST API with a MIXMAX_API_TOKEN. Superseded in
+      practice by Mixmax's own remote MCP server at https://mcp.mixmax.com/mcp, which is OAuth-scoped
+      rather than static-token. Also listed in the official MCP registry as
+      io.github.mindstone/mcp-server-mixmax (@mindstone/mcp-server-mixmax, 0.3.x).
+
+cli:
+  published: false
+  note: >-
+    No first-party CLI. The github.com/mixmaxhq organization publishes ~40 general-purpose Node
+    utilities (npm2yarn, deyarn, custody, mongo-cursor-pagination …) but nothing that drives the
+    Mixmax product from a terminal.
+
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - url: https://registry.npmjs.org/@mixmaxhq%2Fsdk
+    http_status: 200
+  - url: https://registry.npmjs.org/@mixmaxhq%2Fcontext-sdk
+    http_status: 200
+  - url: https://api.github.com/orgs/mixmaxhq/repos
+    http_status: 200
+  - url: https://registry.modelcontextprotocol.io/v0/servers?search=mixmax
+    http_status: 200

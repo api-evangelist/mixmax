@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "797eadbb-729e-45e8-b40e-b76098b077ea",
+      "name": "File Requests",
+      "description": {
+        "content": "File requests you've sent out",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3142a795-0bde-4c74-8e4d-a7178e170f4b",
+          "name": "List file requests",
+          "request": {
+            "name": "List file requests",
+            "description": {
+              "content": "Returns File Requests that you've sent out.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filerequests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fc580cd-1ec9-42cc-8eb2-7223ac56889f",
+              "name": "File requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filerequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7782788d-2e5e-4ca9-8660-7f28ac5f611f",
+              "name": "Missing or invalid API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filerequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b06cceb0-6104-44e0-953f-6e1c6a45ca02",
+              "name": "Rate limit exceeded (120 requests per 60s window per IP and user). Inspect X-RateLimit-Limit, X-RateLimit-Remaining and X-RateLimit-Reset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filerequests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Limit",
+                  "value": "6018",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Remaining",
+                  "value": "6018",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "X-RateLimit-Reset",
+                  "value": "6018",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.mixmax.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a3f66cda-fbc6-4394-8ed2-51d71bba686b",
+    "name": "Mixmax REST Contact Groups File Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Mixmax REST API provides lightweight, real-time access to Mixmax data — contacts, contact groups and notes, sequences and their recipients, file requests, meeting summaries and transcripts, and snippet tags. It is optimized for real-time interactions and is explicitly not designed for bulk exports or high-volume data synchronization. Authentication is via an API token (X-API-Token header or apiToken query parameter) created under Settings > Integrations. Faithful capture of the documented reference at https://developer.mixmax.com/ — response schemas are intentionally left open where the provider does not publish them (no fabrication).\n\nContact Support:\n Name: Mixmax Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

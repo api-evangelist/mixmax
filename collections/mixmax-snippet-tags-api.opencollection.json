@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups Snippet Tags API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snippet Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete a snippet tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mixmax.com/v1/snippettags/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Snippet tag id"
+              }
+            ]
+          },
+          "docs": "Delete a snippet tag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

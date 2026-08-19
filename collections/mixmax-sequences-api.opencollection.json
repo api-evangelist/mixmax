@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups Sequences API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sequences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sequences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/sequences",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Returns sequences that match this string"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Pass expand=stages to return information about the stages too"
+              },
+              {
+                "name": "folder",
+                "value": "",
+                "type": "query",
+                "description": "Filter by folder type (shared"
+              }
+            ]
+          },
+          "docs": "Returns a list of sequences that you have access to."
+        },
+        {
+          "info": {
+            "name": "List sequence recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/sequences/:id/recipients",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Sequence id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset into the result set (max total 10000)"
+              }
+            ]
+          },
+          "docs": "Retrieves the activated recipients belonging to the specified sequence (draft recipients are excluded). This endpoint uses offset-based pagination and returns a single array of results (not the standard results/next envelope). You are limited to 10,000 total records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

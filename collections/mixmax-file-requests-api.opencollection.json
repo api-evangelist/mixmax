@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups File Requests API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List file requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/filerequests"
+          },
+          "docs": "Returns File Requests that you've sent out."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

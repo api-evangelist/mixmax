@@ -1,25 +1,100 @@
-generated: '2026-07-20'
-method: searched
-source: live probes of Mixmax API and website hosts
+generated: '2026-08-13'
+method: probed
+source: live probes of every Mixmax host named in apis.yml, the OpenAPI servers[] block, the
+  docs/console hosts, and the MCP host discovered from the WWW-Authenticate challenge on
+  https://mcp.mixmax.com/mcp
+summary:
+  documents_served: 4
+  hosts_probed: 5
+  paths_probed: 24
 hosts:
-  - host: https://api.mixmax.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
-      - path: /.well-known/openid-configuration
-        status: 404
-      - path: /.well-known/oauth-authorization-server
-        status: 404
-      - path: /.well-known/api-catalog
-        status: 404
-  - host: https://www.mixmax.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
-  - host: https://developer.mixmax.com
-    documents:
-      - path: /.well-known/security.txt
-        status: 404
+- host: https://mcp.mixmax.com
+  note: >-
+    Mixmax's remote MCP server. It answers an unauthenticated request with
+    401 + WWW-Authenticate: Bearer resource_metadata="https://mcp.mixmax.com/.well-known/oauth-protected-resource",
+    i.e. it implements RFC 9728 OAuth 2.0 Protected Resource Metadata. Both discovery
+    documents below are real JSON, not an SPA shell.
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: well-known/mixmax-mcp-oauth-protected-resource.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: well-known/mixmax-mcp-oauth-authorization-server.json
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/security.txt
+    status: 403
+- host: https://app.mixmax.com
+  note: >-
+    Mixmax runs its own OpenID Connect provider at https://app.mixmax.com/oidc — this is the
+    authorization server the MCP protected-resource metadata points at. Dynamic client
+    registration (RFC 7591) and the device-code grant are both advertised.
+  documents:
+  - path: /oidc/.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: well-known/mixmax-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: well-known/mixmax-app-oauth-authorization-server.json
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/agent-card.json
+    status: 401
+- host: https://api.mixmax.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.mixmax.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://developer.mixmax.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
 notes: >-
-  No /.well-known discovery documents are published on the Mixmax API, website,
-  or developer hosts as of this probe. Recorded absence — not a fabrication.
+  Four real discovery documents are served, all of them belonging to the agent/OAuth surface
+  rather than the classic REST surface: RFC 9728 protected-resource metadata and RFC 8414
+  authorization-server metadata on the MCP host, and full OpenID Connect discovery on the
+  app host. Nothing is served under /.well-known/ on the REST API host, the marketing site,
+  or the developer portal — no security.txt, no api-catalog, no ai-plugin.json, and no A2A
+  agent card on any host. Those are recorded absences, not fabrications.
+  One defect worth reporting to Mixmax: the protected-resource metadata advertises
+  resource_documentation https://docs.mixmax.com/mcp, and docs.mixmax.com does not resolve
+  (NXDOMAIN). The live MCP documentation is at
+  https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server.

@@ -1,30 +1,120 @@
-generated: '2026-07-20'
-method: derived
-source: openapi/mixmax-openapi.yml + https://developer.mixmax.com/
+generated: '2026-08-13'
+method: probed
+source: >-
+  openapi/_original/mixmax-openapi.yml + live probes of https://mcp.mixmax.com and
+  https://app.mixmax.com/oidc + https://developer.mixmax.com/ + https://www.mixmax.com/security
+note: >-
+  Mixmax has two surfaces with very different standards postures. The REST API conforms to
+  almost nothing beyond HTTP. The MCP/OAuth surface conforms to the current agent-authorization
+  stack — RFC 9728, RFC 8414, RFC 7591, PKCE and OIDC discovery — all verified by probe.
 standards:
   - id: oauth2
-    conforms: false
-    evidence: REST API authenticates with an API token (apiKey), no oauth2 scheme documented.
+    conforms: true
+    surface: mcp
+    evidence: >-
+      https://mcp.mixmax.com/.well-known/oauth-authorization-server returns 200 with issuer
+      https://app.mixmax.com/oidc, authorization_code + refresh_token + device_code grants.
+      The REST API does NOT use OAuth — it uses a static X-API-Token.
   - id: oidc
+    conforms: true
+    surface: mcp
+    evidence: >-
+      https://app.mixmax.com/oidc/.well-known/openid-configuration returns 200 — a full OpenID
+      Connect discovery document with jwks_uri, userinfo_endpoint, end_session_endpoint and
+      RS256 id_token signing.
+  - id: rfc9728-oauth-protected-resource-metadata
+    conforms: true
+    surface: mcp
+    evidence: >-
+      POST https://mcp.mixmax.com/mcp returns 401 with
+      WWW-Authenticate: Bearer resource_metadata="https://mcp.mixmax.com/.well-known/oauth-protected-resource",
+      and that URL returns 200 JSON naming authorization_servers, resource and scopes_supported.
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    surface: mcp
+    evidence: /.well-known/oauth-authorization-server served 200 on both mcp.mixmax.com and app.mixmax.com.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    surface: mcp
+    evidence: registration_endpoint https://app.mixmax.com/oidc/reg advertised in both discovery documents.
+  - id: rfc7636-pkce
+    conforms: true
+    surface: mcp
+    evidence: code_challenge_methods_supported ["S256"]; token_endpoint_auth_methods_supported ["none"].
+  - id: rfc8628-device-authorization-grant
+    conforms: true
+    surface: mcp
+    evidence: device_authorization_endpoint https://app.mixmax.com/oidc/device/auth and the
+      urn:ietf:params:oauth:grant-type:device_code grant are both advertised.
+  - id: mcp
+    conforms: true
+    surface: mcp
+    evidence: >-
+      First-party remote MCP server at https://mcp.mixmax.com/mcp over Streamable HTTP with
+      JSON-RPC 2.0, documented by Mixmax and reachable by any MCP client. Read-only.
+  - id: a2a
     conforms: false
+    evidence: No agent card served. /.well-known/agent-card.json and /.well-known/agent.json both
+      miss on api.mixmax.com (404), www.mixmax.com (404), developer.mixmax.com (404),
+      app.mixmax.com (401) and mcp.mixmax.com (403).
+  - id: openapi
+    conforms: false
+    surface: rest
+    evidence: >-
+      Mixmax publishes no OpenAPI. Probed /openapi.json, /openapi.yaml, /swagger.json,
+      /v1/openapi.json, /api-docs, /docs and /redoc on api.mixmax.com, developer.mixmax.com,
+      www.mixmax.com and app.mixmax.com — all 404/401. The specs in this repo are generated
+      from the human reference.
+  - id: asyncapi
+    conforms: false
+    surface: events
+    evidence: No AsyncAPI document published; the webhook surface is documented by example payloads
+      only. See asyncapi/mixmax-webhooks.yml.
   - id: rfc9457-problem-details
     conforms: false
-    evidence: Errors are plain JSON with a `message` field, not application/problem+json.
+    surface: rest
+    evidence: Errors are plain JSON with a single `message` field, not application/problem+json.
   - id: cursor-pagination
     conforms: true
+    surface: rest
     evidence: Collections return results/next/previous with hasNext/hasPrevious cursors.
+    exception: /sequences/{id}/recipients uses limit/offset and returns a bare array, capped at
+      10,000 records.
   - id: rate-limit-headers
     conforms: true
+    surface: rest
     evidence: Responses expose X-RateLimit-Limit/Remaining/Reset and 429 on exceed.
+    note: Uses the legacy X- prefixed headers, not the IETF draft RateLimit-* form.
   - id: rfc8594-sunset
     conforms: false
-    evidence: Deprecated endpoints are labeled in docs but no Sunset header contract is published.
+    surface: rest
+    evidence: >-
+      18 of 24 operations are marked deprecated in the developer reference, but no Sunset or
+      Deprecation header contract is published and no dated retirement policy exists.
+  - id: idempotency
+    conforms: false
+    surface: rest
+    evidence: No idempotency-key header or request-replay contract is documented; writes are not
+      advertised as idempotent.
+  - id: webhook-signing
+    conforms: false
+    surface: events
+    evidence: No signature header, timestamp or shared secret is documented for outgoing webhooks;
+      inbound webhooks authenticate by an unguessable gateway URL alone.
+  - id: security-txt
+    conforms: false
+    evidence: RFC 9116 security.txt returns 404 on api.mixmax.com, www.mixmax.com and
+      developer.mixmax.com, and /security.txt at the site root also 404s.
   - id: soc2
     conforms: true
-    evidence: SOC 2 named on https://www.mixmax.com/security
+    evidence: SOC 2 (Type II) named on https://www.mixmax.com/security
   - id: hipaa
     conforms: true
     evidence: HIPAA named on https://www.mixmax.com/security
   - id: gdpr
     conforms: true
     evidence: GDPR named on https://www.mixmax.com/security
+  - id: dnssec
+    conforms: true
+    evidence: mixmax.com is DNSSEC-signed; CAA, SPF and DMARC (p=quarantine) all present. See
+      security/mixmax-domain-security.yml.

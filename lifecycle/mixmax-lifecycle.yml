@@ -1,4 +1,4 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
 source: https://developer.mixmax.com/
 versioning:
@@ -6,16 +6,36 @@ versioning:
   current: v1
   base_url: https://api.mixmax.com/v1
   docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+  changelog: none published — see changelog/mixmax-changelog.yml
 deprecation:
   policy_url: null
   sunset_header: false
+  deprecated_operation_count: 18
+  total_operation_count: 24
   notes: >-
     Mixmax marks superseded endpoints as "deprecated" in the developer reference
     (the entire Contacts and Contact Groups resource families are currently
     flagged for deprecation), but does not publish a formal dated deprecation /
-    sunset policy or advertise RFC 8594 Sunset headers.
+    sunset policy or advertise RFC 8594 Sunset headers. 18 of 24 documented
+    operations — three quarters of the REST surface — are deprecated with no
+    published retirement date and no named replacement.
 status_page: https://status.mixmax.com/
 support: https://success.mixmax.com/
+surfaces:
+  rest:
+    state: maintained, largely deprecated
+    note: Only File Requests, Meetings, Sequences and Snippet Tags are non-deprecated.
+  mcp:
+    state: current
+    launched: '2026-04-13'
+    endpoint: https://mcp.mixmax.com/mcp
+    note: >-
+      The MCP server is where new agent-facing capability is landing — sequence insights and
+      enrollment lookup exist there and nowhere in the REST API. Mixmax states write actions are
+      on the roadmap. See mcp/mixmax-mcp.yml.
+  sdk:
+    state: stale
+    note: '@mixmaxhq/sdk last published 2022-03-23. See packages/mixmax-packages.yml.'
 deprecated_operations:
   - openapi/mixmax-openapi.yml#listContacts
   - openapi/mixmax-openapi.yml#createContacts

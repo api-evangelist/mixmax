@@ -1,0 +1,98 @@
+generated: '2026-08-13'
+method: searched
+source: https://success.mixmax.com/en/articles/8066486-mixmax-webhook-event-structure
+type: Webhooks
+asyncapi_published: false
+asyncapi_note: >-
+  Mixmax publishes no AsyncAPI document. Probed https://api.mixmax.com/v1/asyncapi.yaml (401),
+  and no asyncapi/ artifact appears on developer.mixmax.com, success.mixmax.com or the
+  github.com/mixmaxhq organization. The event surface below is captured from the provider's own
+  documented payloads — it is a webhook catalog, not a fabricated AsyncAPI.
+
+docs:
+  event_structure: https://success.mixmax.com/en/articles/8066486-mixmax-webhook-event-structure
+  incoming: https://success.mixmax.com/en/articles/8159778-incoming-webhooks
+  outgoing: https://success.mixmax.com/en/articles/8065631-how-to-send-activities-to-zapier-using-webhooks
+  transform_language: https://success.mixmax.com/en/articles/8159722-mixmax-webhook-transform-language-advanced
+
+availability:
+  plans: All paid plans (Inbox Copilot and above). Not available on the Free plan.
+  source: https://www.mixmax.com/pricing
+
+directions:
+
+- direction: outgoing
+  description: >-
+    Mixmax pushes email-activity events to any URL you configure as the Webhook action of a
+    Mixmax Rule. Rules are built at https://app.mixmax.com/dashboard/rules — a trigger (e.g.
+    "I receive an email") plus optional filters (e.g. "Is a reply to sequence") plus the
+    Webhook action.
+  configuration: https://app.mixmax.com/dashboard/rules
+  transport: HTTP POST
+  content_type: application/json
+  signing: not documented
+  retries: not documented
+  payload_shaping: >-
+    Optional Transforms let you reshape the payload before it is sent, using the Mixmax Webhook
+    Transform Language. Leaving Transforms empty sends the full Mixmax payload.
+  events:
+  - name: 'message:sent'
+    envelope_field: eventName
+    description: An email was sent from the Mixmax user's mailbox.
+    fields: ['userId', 'to[]', 'cc[]', 'bcc[]', 'from', 'subject', 'sent', 'id', 'threadId',
+      'rfc822Id', 'receivedBy', 'plaintextBody', 'eventName']
+  - name: 'message:received'
+    envelope_field: eventName
+    description: An email was received in the Mixmax user's mailbox.
+    fields: ['userId', 'to[]', 'cc[]', 'bcc[]', 'from', 'subject', 'sent', 'id', 'threadId',
+      'rfc822Id', 'receivedBy', 'plaintextBody', 'eventName']
+  - name: opened
+    envelope_field: eventName
+    description: A tracked message was opened by a recipient. Carries a nested `message`
+      object rather than the flat mail envelope used by message:* events.
+    fields: ['message{to[],cc[],bcc[],subject}', 'userId', 'messageId', 'recipientEmail',
+      'recipientName', 'userAgent', 'timestamp', 'ipAddress', 'eventName']
+  - name: bounce
+    envelope_field: eventName
+    emitted_as: 'message:received'
+    description: >-
+      A bounce is delivered as a message:received event carrying the mailer-daemon DSN, with the
+      extra bouncedRecipientEmails[] array and an inReplyTo pointer to the original message.
+      There is no distinct eventName for a bounce — consumers must branch on the presence of
+      bouncedRecipientEmails.
+    fields: ['userId', 'to[]', 'from', 'subject', 'sent', 'id', 'threadId', 'rfc822Id',
+      'receivedBy', 'plaintextBody', 'bouncedRecipientEmails[]', 'inReplyTo', 'eventName']
+
+- direction: incoming
+  description: >-
+    Mixmax also accepts inbound webhooks: a Rule whose trigger is the Webhook service exposes a
+    generated gateway URL that an external system POSTs JSON to. Documented actions include
+    adding someone to a Mixmax sequence, stopping a sequence for a user, and adding someone to
+    a contact list.
+  gateway_host: https://gateway.mixmax.com
+  url_shape: 'https://gateway.mixmax.com/<generated-per-rule-path>'
+  transport: HTTP POST
+  content_type: application/json
+  authentication: the generated gateway URL is the secret; no signature or header auth documented
+  expected_body_fields:
+  - name: email
+    required: true
+    note: field names are case-sensitive and lowercase
+  - name: name
+    required: true
+  payload_shaping: >-
+    A Transform expression maps an arbitrary inbound body onto Mixmax's expected fields, e.g.
+    `email = candidate.email` and `name = candidate.first_name + " " + candidate.last_name`.
+
+observations:
+- >-
+    The event catalog is small and email-centric — sent, received, opened, bounced. There is no
+    documented event for sequence stage transitions, reply detection, meeting completion or CRM
+    sync, even though the product surfaces all four in the UI.
+- >-
+    No signing secret, no replay window and no delivery-retry policy is documented for outgoing
+    webhooks, and the incoming gateway URL is a bearer secret in the path. An integrator cannot
+    verify that a payload came from Mixmax.
+- >-
+    Event payloads are documented by example only. There is no schema, so field optionality and
+    types have to be inferred from the samples.

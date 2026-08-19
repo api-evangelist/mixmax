@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.mixmax.com/mcp-server-guide
+note: >-
+  These six Agent Skills are PUBLISHED BY MIXMAX. Each file is the SKILL.md extracted verbatim
+  from the zip Mixmax distributes from its own domain — nothing was written or paraphrased by
+  API Evangelist. They ride on the Mixmax MCP server (https://mcp.mixmax.com/mcp); the skills
+  themselves carry no tool identifiers, they instruct the agent to route all meeting and sequence
+  questions through the Mixmax MCP tools.
+downloads_base: https://www.mixmax.com/downloads/mcp-skills/
+requires:
+  mcp_server: https://mcp.mixmax.com/mcp
+  ref: mcp/mixmax-mcp.yml
+skills:
+- file: deal-review-prep.md
+  name: deal-review-prep
+  title: Deal Review Prep
+  download: https://www.mixmax.com/downloads/mcp-skills/deal-review-prep.zip
+  http_status: 200
+  archive_path: deal-review-prep/SKILL.md
+  summary: Synthesizes Mixmax meeting history for an account into a MEDDIC-structured deal review
+    brief with pain points, objections, competitive mentions and risk signals.
+- file: meeting-followup-generator.md
+  name: meeting-followup-generator
+  title: Meeting Follow-up Generator
+  download: https://www.mixmax.com/downloads/mcp-skills/meeting-followup.zip
+  http_status: 200
+  archive_path: meeting-followup-generator/SKILL.md
+  summary: Drafts a follow-up email grounded in the actual transcript and summary, plus a
+    structured action-item list with owners.
+- file: mixmax-mcp-quickstart.md
+  name: mixmax-mcp-quickstart
+  title: MCP Quickstart
+  download: https://www.mixmax.com/downloads/mcp-skills/mcp-quickstart.zip
+  http_status: 200
+  archive_path: mixmax-mcp-quickstart/SKILL.md
+  summary: Guided onboarding that runs a live query against the user's own data and walks through
+    the key meeting and sequence workflows.
+- file: prospect-enrollment-check.md
+  name: prospect-enrollment-check
+  title: Prospect Enrollment Check
+  download: https://www.mixmax.com/downloads/mcp-skills/prospect-check.zip
+  http_status: 200
+  archive_path: prospect-enrollment-check/SKILL.md
+  summary: Checks whether a prospect is already enrolled in a sequence before outreach, and
+    surfaces meeting history and engagement context.
+- file: sequence-performance-analyst.md
+  name: sequence-performance-analyst
+  title: Sequence Performance Analyst
+  download: https://www.mixmax.com/downloads/mcp-skills/sequence-analyst.zip
+  http_status: 200
+  archive_path: sequence-performance-analyst/SKILL.md
+  summary: Stage-level sequence analysis with benchmarks (12% reply-rate floor, 8-12 touch
+    cadence) and specific optimization recommendations.
+- file: weekly-meeting-digest.md
+  name: weekly-meeting-digest
+  title: Weekly Meeting Digest
+  download: https://www.mixmax.com/downloads/mcp-skills/weekly-digest.zip
+  http_status: 200
+  archive_path: weekly-meeting-digest/SKILL.md
+  summary: Rolls the past week of meetings into one digest — grouped by account for reps, by
+    deal risk for managers.
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://www.mixmax.com/mcp-server-guide
+  http_status: 200
+  archives_fetched: 6
+  archives_http_status: 200

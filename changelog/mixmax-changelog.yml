@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.mixmax.com/changelog
+docs: https://www.mixmax.com/blog?sub_category=product-updates
+
+scheme:
+  api_versioning: uri-path
+  current_api_version: v1
+  ref: lifecycle/mixmax-lifecycle.yml
+
+surfaces:
+- url: https://www.mixmax.com/changelog
+  http_status: 308
+  redirects_to: https://www.mixmax.com/blog?sub_category=product-updates
+  kind: product-update blog category
+  dated: true
+  machine_readable: false
+  note: >-
+    /changelog is a permanent redirect into a filtered view of the marketing blog. Entries are
+    dated product announcements, not release notes: no version numbers, no breaking-change
+    markers, no per-endpoint detail.
+- url: https://developer.mixmax.com/changelog
+  http_status: 200
+  kind: ReadMe changelog on the developer portal
+  dated: false
+  entries: 0
+  note: >-
+    The developer portal ships the changelog surface but it is EMPTY — the page renders
+    "No Changelogs". This is the finding: Mixmax has a first-party place to publish API
+    changes and publishes nothing there.
+
+api_changelog_published: false
+api_changelog_note: >-
+  There is no API changelog. The product blog announces features; the developer portal's
+  changelog is empty. An integrator has no dated record of when /contacts and /contactgroups
+  were deprecated, when the /meetings endpoints shipped, or when the MCP server changed — even
+  though all three happened inside the observable window.
+
+recent_entries_note: >-
+  Recent dated product-update posts, captured from the provider's own blog. These are product
+  announcements, not versioned API releases; no entry maps to an API version.
+recent_entries:
+  - date: '2026-05'
+    title: What is Mixmax? May 2026 Platform Overview
+    kind: product
+  - date: '2026-04-13'
+    title: Introducing the Mixmax MCP Server — your sales data inside your AI
+    kind: product
+    url: https://www.mixmax.com/blog/introducing-the-mixmax-mcp-server-your-sales-data-inside-your-ai
+    agent_surface: true
+    note: Launch of the remote MCP server at https://mcp.mixmax.com/mcp. The most significant
+      developer-facing change in the window, and it was announced only on the marketing blog.
+  - date: '2026-04'
+    title: Stop prepping for meetings. Start acing them.
+    kind: product
+  - date: '2025-01'
+    title: Mixmax 2024 highlights
+    kind: product
+  - date: '2024-11'
+    title: 'Close Q4 strong with smarter sales tools: SMS, AI, and more'
+    kind: product
+  - date: '2024-09'
+    title: Hit the Right Inbox Every Time with OOO Detection, AI Sequences, and More
+    kind: product
+
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - url: https://www.mixmax.com/changelog
+    http_status: 308
+  - url: https://www.mixmax.com/blog?sub_category=product-updates
+    http_status: 200
+  - url: https://developer.mixmax.com/changelog
+    http_status: 200
+    body_note: renders "No Changelogs"

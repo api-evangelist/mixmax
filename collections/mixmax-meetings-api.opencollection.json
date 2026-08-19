@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups Meetings API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search meeting summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/meetings/summaries/search"
+          },
+          "docs": "Search and retrieve meeting summaries with optional filters. Returns summaries for meetings where the authenticated user is the owner, or if workspace-wide access is enabled via admin settings, workspace admins can access summaries from all workspace members' meetings. Requires the mixmaxApi feature (API access enabled for your workspace)."
+        },
+        {
+          "info": {
+            "name": "Retrieve a meeting transcript",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/meetings/transcripts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Meeting summary _id (from /meetings/summaries/search)"
+              }
+            ]
+          },
+          "docs": "Retrieve the full transcript for a specific meeting by its summary ID. Returns the complete transcript with speaker identification and timestamps. Requires the mixmaxApi feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,18 +1,32 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
 source: https://developer.mixmax.com/reference/getting-started-with-the-api
 docs: https://developer.mixmax.com/reference/getting-started-with-the-api
+surfaces:
+  rest: https://api.mixmax.com/v1
+  mcp: https://mcp.mixmax.com/mcp
+  webhooks: rule-configured (see asyncapi/mixmax-webhooks.yml)
 authentication:
-  style: api-key
-  transport: header
-  header: X-API-Token
-  alt: query parameter apiToken
+  rest:
+    style: api-key
+    transport: header
+    header: X-API-Token
+    alt: query parameter apiToken
+    scoped: false
+    revocable: manually, from Settings > Integrations
+  mcp:
+    style: oauth2
+    flow: authorization_code + PKCE (S256)
+    scopes: [openid, offline_access, 'meetings:read']
+    challenge: RFC 9728 WWW-Authenticate on 401
   ref: authentication/mixmax-authentication.yml
 idempotency:
   supported: false
+  header: null
   notes: >-
-    Mixmax does not document an idempotency-key header or a request-replay
-    contract for the REST API. Writes are not advertised as idempotent.
+    Mixmax does not document an idempotency-key header or a request-replay contract for the REST
+    API. Writes are not advertised as idempotent, so a retried POST /contacts or
+    POST /contactgroups/{id}/contacts may duplicate. Clients must dedupe themselves.
 pagination:
   style: cursor
   default_limit: 50
@@ -23,30 +37,73 @@ pagination:
     - endpoint: /sequences/{id}/recipients
       style: offset
       params: [limit, offset]
-      note: Returns a bare array (not the results/next envelope); capped at 10,000 total records.
+      note: >-
+        Returns a bare array (not the results/next envelope); capped at 10,000 total records, so
+        offset=9999 admits only limit=1. Two pagination contracts in one API is a real
+        interoperability cost — a generic client cannot page this API uniformly.
+field_expansion:
+  param: expand
+  style: comma-separated field names
+  examples:
+    - endpoint: /contacts
+      values: [firstName, lastName, groups, notes, salesforce]
+    - endpoint: /sequences
+      values: [stages]
+sparse_fields:
+  supported: false
+metadata:
+  custom_metadata_fields: false
+request_tracing:
+  documented: false
+  note: No request-id / correlation-id header is documented on requests or responses, so a
+    support conversation cannot reference a specific call.
 rate_limiting:
   limit: 120
   window_seconds: 60
   scope: per IP address and user
   retry_status: 429
   response_headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  retry_after: not documented
   ref: rate-limits/mixmax-rate-limits.yml
 versioning:
   scheme: uri-path
   current: v1
   base_url: https://api.mixmax.com/v1
+  api_changelog: none published (developer portal changelog is empty)
+  ref: changelog/mixmax-changelog.yml
+deprecation:
+  signalled_in: docs only ("[deprecated]" in the reference title)
+  sunset_header: false
+  policy_url: null
+  ref: lifecycle/mixmax-lifecycle.yml
 error_envelope:
   format: json
   shape: '{ "message": "<human-readable error>" }'
   standard: http-status-codes
   problem_json: false
-metadata:
-  expand: >-
-    Several endpoints accept an `expand` parameter to inline related fields
-    (e.g. contacts: firstName, lastName, groups, notes, salesforce; sequences: stages).
-request_tracing:
-  documented: false
+  stable_error_codes: false
+  ref: errors/mixmax-problem-types.yml
+identifiers:
+  style: MongoDB ObjectId-style hex strings
+  field: _id
+  prefixed: false
+  note: >-
+    Ids are unprefixed, so a caller cannot tell a contact id from a sequence id from a meeting
+    summary id by inspection. The transcript endpoint's `id` is specifically the meeting SUMMARY
+    `_id` returned by /meetings/summaries/search — a documented footgun.
+timestamps:
+  style: 'epoch milliseconds (webhook payloads use `sent` and `timestamp`)'
+  iso8601: not documented for REST responses
+feature_gating:
+  flag: mixmaxApi
+  scope: workspace
+  affects: [searchMeetingSummaries, getMeetingTranscript]
+  note: >-
+    An admin must enable API access for the workspace before the meeting endpoints answer;
+    otherwise they 403. This is an entitlement failure, not an auth failure, and it is not
+    distinguishable from the error body.
 scope_of_api:
   note: >-
-    The REST API is optimized for lightweight, real-time interactions and is
-    explicitly not intended for bulk export or high-volume data synchronization.
+    The REST API is explicitly optimized for lightweight, real-time interactions and is NOT
+    intended for bulk export or high-volume data synchronization. The 120 req/min ceiling and
+    the 10,000-record recipient cap enforce that in practice.

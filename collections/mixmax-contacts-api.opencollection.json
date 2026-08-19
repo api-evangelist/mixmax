@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups Contacts API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Mixmax Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contacts",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "sortAscending",
+                "value": "",
+                "type": "query",
+                "description": "Sort ascending"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Optional search string"
+              },
+              {
+                "name": "includeShared",
+                "value": "",
+                "type": "query",
+                "description": "Include shared contacts"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Fields to expand (firstName"
+              },
+              {
+                "name": "withAnalytics",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dates",
+                "value": "",
+                "type": "query",
+                "description": "Analytics date range"
+              },
+              {
+                "name": "timezoneOffset",
+                "value": "",
+                "type": "query",
+                "description": "Client timezone offset in minutes"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of date range"
+              },
+              {
+                "name": "until",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of date range"
+              }
+            ]
+          },
+          "docs": "Lists all your Mixmax Contacts (i.e. people you've emailed using Mixmax). Does not currently return contacts shared with you via shared contact groups (a performance limitation)."
+        },
+        {
+          "info": {
+            "name": "Create one or more contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mixmax.com/v1/contacts"
+          },
+          "docs": "Create one or more contacts"
+        },
+        {
+          "info": {
+            "name": "Search for matching contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mixmax.com/v1/contacts/query"
+          },
+          "docs": "Search for matching contacts across multiple sources including Mixmax, Google directory, and Salesforce (contacts, leads, accounts, and opportunities). Differs from GET /contacts which only searches Mixmax Contacts."
+        },
+        {
+          "info": {
+            "name": "Retrieve a contact by _id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              }
+            ]
+          },
+          "docs": "Retrieve a contact by _id"
+        },
+        {
+          "info": {
+            "name": "Update a specific contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mixmax.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              }
+            ]
+          },
+          "docs": "Update a specific contact"
+        },
+        {
+          "info": {
+            "name": "Delete a specific contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mixmax.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              }
+            ]
+          },
+          "docs": "Delete a specific contact"
+        },
+        {
+          "info": {
+            "name": "List notes for a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contacts/:id/notes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              }
+            ]
+          },
+          "docs": "Lists notes for a contact. These can be seen in the Mixmax Dashboard under 'Contacts'."
+        },
+        {
+          "info": {
+            "name": "Create a contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mixmax.com/v1/contacts/:id/notes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              }
+            ]
+          },
+          "docs": "Create a contact note"
+        },
+        {
+          "info": {
+            "name": "Update a contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mixmax.com/v1/contacts/:id/notes/:noteId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              },
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "Note id"
+              }
+            ]
+          },
+          "docs": "Updates a contact note. Only the creator of the note can edit it. The contact note will show \"(edited)\" in the UI."
+        },
+        {
+          "info": {
+            "name": "Delete a contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mixmax.com/v1/contacts/:id/notes/:noteId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact _id"
+              },
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "Note id"
+              }
+            ]
+          },
+          "docs": "Deletes a note. Only the creator of the note can delete it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

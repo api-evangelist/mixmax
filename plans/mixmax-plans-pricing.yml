@@ -1,0 +1,106 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.mixmax.com/pricing
+docs: https://www.mixmax.com/pricing
+currency: USD
+billing_unit: per user per month
+plan_count: 6
+model: >-
+  Mixmax sells three standalone "copilots" plus a bundle, a team/enterprise tier and a free
+  tier. Annual and monthly prices are both published. Quotas are attached to the tier
+  (sequence recipients per month, meeting summaries per month, tracked emails per month).
+
+plans:
+- name: Free
+  price: 0
+  currency: USD
+  period: month
+  quotas:
+    sequence_recipients_per_month: 50
+    tracked_emails_per_month: 20
+  api_access: false
+  webhooks: false
+  note: The pricing page's feature comparison excludes the Free plan from Mixmax API and
+    Mixmax webhook access; the webhook help articles say the same.
+
+- name: Inbox Copilot
+  price_annual: 29
+  price_monthly: 34
+  currency: USD
+  period: month
+  unit: per user
+  includes: [unlimited email tracking, inbox categorization, smart signals, meeting scheduling]
+  webhooks: true
+  note: Mixmax's own webhook docs name "Inbox Copilot and above" as the floor for webhooks.
+
+- name: Meeting Copilot
+  price_annual: 29
+  price_monthly: 34
+  currency: USD
+  period: month
+  unit: per user
+  includes: [pre-meeting prep, instant meeting notes, draft follow-ups, meeting scheduling]
+  quotas:
+    post_meeting_summaries_per_month: 200
+  note: >-
+    This is the tier that gates the data the MCP server is most valuable for — Mixmax states
+    meeting transcript/summary access through MCP requires Meeting Copilot. Meeting Copilot is
+    Gmail-only; Outlook users cannot get it.
+
+- name: Engagement Copilot
+  price_annual: 49
+  price_monthly: 65
+  currency: USD
+  period: month
+  unit: per user
+  includes: [email sequences, multi-channel sequences, AI sequence builder, personalization]
+  quotas:
+    sequence_recipients_per_month: 1500
+
+- name: Mixmax Suite
+  price_annual: 89
+  price_monthly: 105
+  currency: USD
+  period: month
+  unit: per user
+  most_popular: true
+  includes: [all three copilots, Mixmax Core, Mixmax Intelligence]
+  quotas:
+    sequence_recipients_per_month: 1500
+  api_access: true
+  webhooks: true
+
+- name: Mixmax for Teams
+  price: custom
+  currency: USD
+  period: month
+  unit: per user
+  minimum_seats: 5
+  includes: [everything in Suite, enterprise add-ons]
+  quotas:
+    sequence_recipients_per_month: 3000
+  note: Contact-sales pricing; the quota is published even though the price is not.
+
+api_and_agent_access:
+  rest_api:
+    gated_by_plan: true
+    detail: >-
+      "Mixmax API" appears in the pricing feature-comparison table and is included in Mixmax
+      Suite. Meeting summary/transcript endpoints additionally require the workspace-level
+      `mixmaxApi` feature flag, enabled by an admin.
+  webhooks:
+    gated_by_plan: true
+    detail: Available on all paid plans (Inbox Copilot and above); excluded from Free.
+  mcp_server:
+    gated_by_plan: false
+    detail: >-
+      Mixmax states the MCP server is included at no additional cost for all customers with no
+      plan restriction. The practical gate is data, not entitlement — meeting data requires
+      Meeting Copilot. This makes MCP the cheapest agent-reachable surface Mixmax ships.
+    source: https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server
+
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://www.mixmax.com/pricing
+  http_status: 200
+  corroboration: https://www.mixmax.com/llms.txt (200) lists the same four paid prices

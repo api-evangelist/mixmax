@@ -1,45 +1,146 @@
-generated: '2026-07-20'
-method: derived
-status: candidate
-source: openapi/mixmax-openapi.yml
-notes: >-
-  Mixmax does not publish an official first-party hosted MCP server. Community
-  MCP servers exist on npm (e.g. @mindstone-engineering/mcp-server-mixmax) and a
-  Mixmax connector is available via Pipedream (@pipedream/mixmax), but neither is
-  Mixmax-official. The tool list below is a candidate derived one-to-one from the
-  documented REST operations.
-community_servers:
-  - name: "@mindstone-engineering/mcp-server-mixmax"
-    registry: npm
-    official: false
-  - name: "@pipedream/mixmax"
-    registry: npm
-    official: false
+generated: '2026-08-13'
+method: probed
+status: published
+source: https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server
+docs: https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server
+guide: https://www.mixmax.com/mcp-server-guide
+announcement: https://www.mixmax.com/blog/introducing-the-mixmax-mcp-server-your-sales-data-inside-your-ai
+
+deployment:
+  mode: remote
+  endpoint: https://mcp.mixmax.com/mcp
+  auth: oauth
+  verified: probed
+
 server:
   name: mixmax
-  transport: http
+  transport: streamable-http
+  protocol: MCP over JSON-RPC 2.0
+  read_only: true
+  cost: included at no additional cost for all Mixmax customers (no plan restriction);
+    meeting data additionally requires the Meeting Copilot product
+  max_response_size: under 25K tokens (provider-stated)
+
+authentication:
+  type: oauth2
+  flow: authorization_code
+  pkce: S256
+  dynamic_client_registration: true
+  bearer_methods_supported: [header]
+  authorization_server: https://app.mixmax.com/oidc
+  protected_resource_metadata: https://mcp.mixmax.com/.well-known/oauth-protected-resource
+  authorization_server_metadata: https://mcp.mixmax.com/.well-known/oauth-authorization-server
+  scopes: [meetings:read]
+  ref: scopes/mixmax-scopes.yml
+
+x-evidence:
+  fetched: '2026-08-13'
+  probes:
+  - url: https://mcp.mixmax.com/mcp
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    www_authenticate: Bearer resource_metadata="https://mcp.mixmax.com/.well-known/oauth-protected-resource"
+    note: >-
+      The live tools/list is OAuth-gated, so tool input schemas could not be introspected
+      anonymously. The 401 is itself the proof the endpoint is a real MCP resource server —
+      it answers with an RFC 9728 challenge, not a 404.
+  - url: https://mcp.mixmax.com/.well-known/oauth-protected-resource
+    http_status: 200
+  - url: https://mcp.mixmax.com/.well-known/oauth-authorization-server
+    http_status: 200
+  - url: https://app.mixmax.com/oidc/.well-known/openid-configuration
+    http_status: 200
+
+clients:
+- name: Claude Desktop
+  method: custom connector, URL https://mcp.mixmax.com/mcp
+- name: Claude Code
+  method: 'claude mcp add --transport http --scope user mixmax https://mcp.mixmax.com/mcp'
+- name: ChatGPT
+  method: approved ChatGPT app
+  url: https://chatgpt.com/apps/mixmax/asdk_app_69cd5af478a88191bc20af347bac19b2
+- name: Cursor
+  method: any MCP-compatible client over Streamable HTTP
+- name: Windsurf
+  method: any MCP-compatible client over Streamable HTTP
+
 tools:
-  - name: list_contacts
-    description: List Mixmax Contacts
-    source_operation: openapi/mixmax-openapi.yml#listContacts
-  - name: query_contacts
-    description: Search for matching contacts across Mixmax, Google directory, and Salesforce
-    source_operation: openapi/mixmax-openapi.yml#queryContacts
-  - name: list_contact_groups
-    description: List contact groups you can access
-    source_operation: openapi/mixmax-openapi.yml#listContactGroups
-  - name: list_sequences
-    description: List sequences you have access to
-    source_operation: openapi/mixmax-openapi.yml#listSequences
-  - name: list_sequence_recipients
-    description: List activated recipients of a sequence
-    source_operation: openapi/mixmax-openapi.yml#listSequenceRecipients
+  note: >-
+    Tool names below are the identifiers Mixmax names verbatim in its own MCP documentation
+    (the "What happens" walkthroughs in the Usage Examples section). Input schemas are NOT
+    recorded because tools/list is OAuth-gated — retrieving them requires an authenticated
+    introspection. Capability bullets that Mixmax describes but does not name with an
+    identifier are listed separately under undocumented_capabilities rather than invented.
+  named:
   - name: search_meeting_summaries
-    description: Search meeting summaries (requires mixmaxApi feature)
-    source_operation: openapi/mixmax-openapi.yml#searchMeetingSummaries
-  - name: get_meeting_transcript
-    description: Retrieve a meeting transcript by summary id
-    source_operation: openapi/mixmax-openapi.yml#getMeetingTranscript
-  - name: list_file_requests
-    description: List file requests you have sent
-    source_operation: openapi/mixmax-openapi.yml#listFileRequests
+    category: meetings
+    description: Search and retrieve AI meeting summaries, filterable by date range.
+    source: provider docs (Usage Example 1)
+  - name: list_sequences
+    category: sequences
+    description: List sequences, filterable by name and folder.
+    source: provider docs (Usage Examples 2 and 4)
+  - name: get_sequence
+    category: sequences
+    description: Retrieve sequence details including stages (subject lines, delays, step order)
+      and recipient counts.
+    source: provider docs (Usage Example 2)
+  - name: get_sequence_insights
+    category: sequences
+    description: Per-stage open, click, reply and bounce rates for a sequence.
+    source: provider docs (Usage Example 4)
+  - name: find_contact_in_sequences
+    category: sequences
+    description: Check whether a contact email is enrolled in any of the caller's sequences.
+    source: provider docs (Usage Example 3)
+  undocumented_capabilities:
+  - Search calendar events by date range, attendee email, or domain (Meetings tool)
+  - Check meeting assistant settings and meeting type configurations (Meetings tool)
+  - Monitor daily send volume against the sending limit (Sequences tool)
+  - Validate a sequence before launching, to catch issues (Sequences tool)
+
+data_boundary:
+  accessible: [meeting summaries, meeting transcripts, participant lists, action items,
+    sequence reporting, email metadata and subjects]
+  not_accessible: [email message bodies, passwords, billing information, other users' private data]
+  tenancy: per-user; all data scoped to the authenticated user
+  writes: none today — Mixmax states action capabilities (sequence enrollment, email sending,
+    template management) are on the roadmap
+
+skills:
+  note: Mixmax publishes six installable Claude Skills that ride on this MCP server.
+  index: skills/_published/_index.yml
+  guide: https://www.mixmax.com/mcp-server-guide
+
+community_servers:
+- name: '@mindstone-engineering/mcp-server-mixmax'
+  registry: npm
+  official: false
+  version: 0.2.1
+  published: '2026-04-29'
+  transport: stdio
+  note: Third-party. Listed in the official MCP registry as io.github.mindstone/mcp-server-mixmax;
+    wraps the Mixmax REST API with a MIXMAX_API_TOKEN. Not Mixmax-published.
+- name: '@pipedream/mixmax'
+  registry: npm
+  official: false
+  version: 0.0.5
+  published: '2025-03-21'
+  note: Pipedream connector components. Not Mixmax-published.
+
+registry:
+  official_mcp_registry_listing: false
+  note: >-
+    Mixmax's own remote server is not published to registry.modelcontextprotocol.io as of this
+    probe; only the third-party mindstone server appears there. Registering the first-party
+    endpoint would make it discoverable to MCP clients that resolve through the registry.
+
+known_issues:
+- id: resource-documentation-nxdomain
+  detail: >-
+    /.well-known/oauth-protected-resource advertises resource_documentation
+    https://docs.mixmax.com/mcp; docs.mixmax.com does not resolve (NXDOMAIN). The working
+    documentation URL is
+    https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server.
+  observed: '2026-08-13'

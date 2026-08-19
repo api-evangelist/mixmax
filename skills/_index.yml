@@ -1,16 +1,36 @@
-generated: '2026-07-20'
-method: generated
-source: openapi/mixmax-openapi.yml + conventions/mixmax-conventions.yml
+generated: '2026-08-13'
+method: searched
+source: https://www.mixmax.com/mcp-server-guide + openapi/mixmax-openapi.yml
+note: >-
+  Two tiers. `published` skills are Mixmax's own — downloaded verbatim from mixmax.com and
+  stored under skills/_published/. `generated` skills are API Evangelist's, grounded in real
+  operationIds from the captured OpenAPI, covering the REST surface Mixmax's own skills do not
+  touch.
+published:
+  index: skills/_published/_index.yml
+  count: 6
+  source: https://www.mixmax.com/mcp-server-guide
+  surface: MCP (https://mcp.mixmax.com/mcp)
+  skills:
+    - {file: _published/deal-review-prep.md, name: deal-review-prep}
+    - {file: _published/meeting-followup-generator.md, name: meeting-followup-generator}
+    - {file: _published/mixmax-mcp-quickstart.md, name: mixmax-mcp-quickstart}
+    - {file: _published/prospect-enrollment-check.md, name: prospect-enrollment-check}
+    - {file: _published/sequence-performance-analyst.md, name: sequence-performance-analyst}
+    - {file: _published/weekly-meeting-digest.md, name: weekly-meeting-digest}
 skills:
   - file: mixmax-search-contacts.md
     name: Search and read Mixmax contacts
     api: openapi/mixmax-openapi.yml
     operations: [queryContacts, listContacts, getContact]
+    method: generated
   - file: mixmax-pull-meeting-intelligence.md
     name: Pull Mixmax meeting summaries and transcripts
     api: openapi/mixmax-openapi.yml
     operations: [searchMeetingSummaries, getMeetingTranscript]
+    method: generated
   - file: mixmax-audit-sequence-recipients.md
     name: List sequences and page through their recipients
     api: openapi/mixmax-openapi.yml
     operations: [listSequences, listSequenceRecipients]
+    method: generated

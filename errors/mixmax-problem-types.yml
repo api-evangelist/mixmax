@@ -1,0 +1,87 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/mixmax-openapi.yml + https://developer.mixmax.com/reference/getting-started-with-the-api
+format: json
+rfc9457: false
+problem_json: false
+envelope:
+  content_type: application/json
+  shape: '{ "message": "<human-readable error>" }'
+  fields:
+  - name: message
+    type: string
+    required: true
+    description: The only field Mixmax documents. Human-readable, not a stable machine code.
+  missing:
+  - a stable error `code` / `type` identifier
+  - a `request_id` or trace identifier for support correlation
+  - field-level validation detail
+  - a documented error reference page
+
+statuses:
+- status: 401
+  name: Unauthorized
+  title: Missing or invalid API token
+  observed_body: '{"message":"No API token provided; please visit https://app.mixmax.com/dashboard/settings/personal/integrations to create one"}'
+  observed_at: https://api.mixmax.com/v1/openapi.json
+  operations: all
+  remediation: >-
+    Create an API token under Settings > Integrations and send it as the X-API-Token header
+    (or the apiToken query parameter). The token is displayed once.
+  method: probed
+
+- status: 403
+  name: Forbidden
+  title: Workspace feature not enabled
+  detail: >-
+    Returned by the meeting endpoints when the workspace-level `mixmaxApi` feature is not
+    enabled. Not a token problem — an admin must turn the feature on.
+  operations: [searchMeetingSummaries, getMeetingTranscript]
+  remediation: Ask a workspace admin to enable API access (Admin Settings > Meeting Copilot for
+    workspace-wide transcript access).
+
+- status: 404
+  name: NotFound
+  title: Resource not found
+  observed_body: '{"message":"Not found. Looking for an API that we don''t provide? Let us know..."}'
+  observed_at: https://api.mixmax.com/openapi.json
+  operations: [getContact, updateContact, deleteContact, getContactGroup, updateContactGroup,
+    deleteContactGroup, getMeetingTranscript, deleteSnippetTag]
+  remediation: Verify the id. For transcripts the id is the meeting SUMMARY `_id` returned by
+    /meetings/summaries/search, not a meeting id.
+  method: probed
+
+- status: 429
+  name: RateLimited
+  title: Rate limit exceeded
+  detail: 120 requests per rolling 60-second window, scoped per IP address and user.
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  operations: [listContacts, createContacts, queryContacts, listFileRequests,
+    searchMeetingSummaries, listSequences, listSequenceRecipients]
+  remediation: Pace requests using X-RateLimit-Remaining and back off until X-RateLimit-Reset.
+  ref: rate-limits/mixmax-rate-limits.yml
+
+mcp_surface:
+- status: 401
+  name: Unauthorized
+  surface: https://mcp.mixmax.com/mcp
+  observed_body: '{"message": "Unauthorized"}'
+  headers:
+    WWW-Authenticate: Bearer resource_metadata="https://mcp.mixmax.com/.well-known/oauth-protected-resource"
+  detail: >-
+    The MCP resource server returns a spec-correct RFC 9728 challenge. This is the one place in
+    the Mixmax estate where an error response carries machine-actionable recovery instructions.
+  method: probed
+  observed_at: '2026-08-13'
+
+observations:
+- >-
+    No 5xx responses are documented anywhere in the reference. Every documented failure is a 4xx.
+- >-
+    The REST API's error envelope is a single prose string. Two different failures with the same
+    status are indistinguishable to a client without string-matching the message, which is not a
+    stable contract.
+- >-
+    Adopting RFC 9457 application/problem+json — or even just adding a stable `code` and a
+    `request_id` to the existing envelope — would be the single cheapest correctness improvement
+    to the REST surface.

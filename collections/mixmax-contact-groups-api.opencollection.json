@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mixmax REST Contact Groups API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contact groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contactgroups"
+          },
+          "docs": "Contact groups that you have access to (either that you have created, or that have been shared with you)."
+        },
+        {
+          "info": {
+            "name": "Create a contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mixmax.com/v1/contactgroups"
+          },
+          "docs": "Create a contact group"
+        },
+        {
+          "info": {
+            "name": "Fetch a specific contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              }
+            ]
+          },
+          "docs": "Fetch a specific contact group"
+        },
+        {
+          "info": {
+            "name": "Edit a contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              }
+            ]
+          },
+          "docs": "Edit a contact group"
+        },
+        {
+          "info": {
+            "name": "Delete a contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              }
+            ]
+          },
+          "docs": "Delete a contact group"
+        },
+        {
+          "info": {
+            "name": "List contact group membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              }
+            ]
+          },
+          "docs": "Returns membership for a contact group."
+        },
+        {
+          "info": {
+            "name": "Add a contact to a contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              }
+            ]
+          },
+          "docs": "Adds a Contact to a Contact Group. You must own the group to add contacts to it."
+        },
+        {
+          "info": {
+            "name": "Remove a contact from a contact group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mixmax.com/v1/contactgroups/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact group id"
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "Contact id"
+              }
+            ]
+          },
+          "docs": "Remove a contact from a contact group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

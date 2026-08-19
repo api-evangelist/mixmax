@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: probed
+source: https://app.mixmax.com/oidc/.well-known/openid-configuration
+docs: https://success.mixmax.com/en/articles/14298142-mixmax-mcp-server
+surface: >-
+  These scopes govern the Mixmax MCP server (https://mcp.mixmax.com/mcp), not the classic
+  REST API. The REST API at https://api.mixmax.com/v1 has no OAuth at all — it authenticates
+  with a static X-API-Token and therefore has no scope model. See
+  authentication/mixmax-authentication.yml.
+
+authorization_server:
+  issuer: https://app.mixmax.com/oidc
+  authorization_endpoint: https://app.mixmax.com/oidc/auth
+  token_endpoint: https://app.mixmax.com/oidc/token
+  device_authorization_endpoint: https://app.mixmax.com/oidc/device/auth
+  registration_endpoint: https://app.mixmax.com/oidc/reg
+  revocation_endpoint: https://app.mixmax.com/oidc/token/revocation
+  userinfo_endpoint: https://app.mixmax.com/oidc/me
+  jwks_uri: https://app.mixmax.com/oidc/jwks
+  grant_types_supported: [implicit, authorization_code, refresh_token, 'urn:ietf:params:oauth:grant-type:device_code']
+  code_challenge_methods_supported: [S256]
+  dynamic_client_registration: true
+  public_clients_allowed: true
+
+resource_servers:
+- resource: https://mcp.mixmax.com
+  metadata: https://mcp.mixmax.com/.well-known/oauth-protected-resource
+  scopes_required: [meetings:read]
+  bearer_methods_supported: [header]
+
+scopes:
+- name: openid
+  standard: true
+  spec: OpenID Connect Core 1.0
+  description: Request an ID token identifying the signed-in Mixmax user.
+  source: https://app.mixmax.com/oidc/.well-known/openid-configuration
+- name: offline_access
+  standard: true
+  spec: OpenID Connect Core 1.0
+  description: Issue a refresh token so the client can keep calling after the access token
+    expires — this is how an MCP client stays connected between sessions.
+  source: https://app.mixmax.com/oidc/.well-known/openid-configuration
+- name: meetings:read
+  standard: false
+  resource: https://mcp.mixmax.com
+  access: read
+  description: >-
+    Read-only access to the authenticated user's Mixmax Meeting Intelligence data — meeting
+    summaries, transcripts, participant lists and action items. This is the only Mixmax-specific
+    scope the authorization server advertises, and it is the only scope the MCP protected-resource
+    metadata requires.
+  source: https://mcp.mixmax.com/.well-known/oauth-protected-resource
+
+observations:
+- >-
+    The scope catalog is deliberately narrow: one product scope, read-only. Mixmax states in its
+    own docs that write actions (sequence enrollment, email sending, template management) are on
+    the roadmap, so no write scope exists yet.
+- >-
+    The MCP server also surfaces sequence data (list_sequences, get_sequence, get_sequence_insights,
+    find_contact_in_sequences), but no `sequences:read` scope is advertised. Either sequence access
+    rides on meetings:read or it is authorized outside the published scope model — Mixmax does not
+    document which, and we did not guess.
+- >-
+    token_endpoint_auth_methods_supported on the MCP-facing metadata is ["none"], i.e. public
+    clients with PKCE. Combined with the open registration_endpoint this is the standard
+    MCP-client onboarding shape.

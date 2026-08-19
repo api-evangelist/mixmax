@@ -1,0 +1,1 @@
+{"authorization_servers":["https://app.mixmax.com/oidc"],"bearer_methods_supported":["header"],"resource":"https://mcp.mixmax.com","resource_documentation":"https://docs.mixmax.com/mcp","scopes_supported":["meetings:read"]}
