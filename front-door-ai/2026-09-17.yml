@@ -1,0 +1,30 @@
+# Front Door AI Index — mixmax — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: mixmax
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.mixmax.com
+  final_host: www.mixmax.com
+  ownership: own
+  owner: mixmax
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 16
+  host_score: 16
+  density: 11.72
+  words: 1365
+  tiers:
+    agentic: 12
+    core: 1
+    model: 3
+  ambiguous: 2
+  top_terms:
+    copilot: 9
+    MCP: 3
+    ChatGPT: 2
+    smart: 2
+    AI: 1
+    Claude: 1

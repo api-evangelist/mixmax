@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Mixmax REST Contact Groups Contacts API
+  title: Mixmax REST Contacts API
   version: '1'
-  description: The Mixmax REST API provides lightweight, real-time access to Mixmax data — contacts, contact groups and notes, sequences and their recipients, file requests, meeting summaries and transcripts, and snippet tags. It is optimized for real-time interactions and is explicitly not designed for bulk exports or high-volume data synchronization. Authentication is via an API token (X-API-Token header or apiToken query parameter) created under Settings > Integrations. Faithful capture of the documented reference at https://developer.mixmax.com/ — response schemas are intentionally left open where the provider does not publish them (no fabrication).
+  description: The Mixmax REST API provides lightweight, real-time access to Mixmax data — contacts, contact groups and notes, sequences and their recipients, file requests, meeting summaries and transcripts, and snippet tags.
   contact:
     name: Mixmax Developer Support
     url: https://developer.mixmax.com/
@@ -262,6 +262,24 @@ components:
                 type: boolean
               hasPrevious:
                 type: boolean
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    Unauthorized:
+      description: Missing or invalid API token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
     RateLimited:
       description: Rate limit exceeded (120 requests per 60s window per IP and user). Inspect X-RateLimit-Limit, X-RateLimit-Remaining and X-RateLimit-Reset.
       headers:
@@ -274,24 +292,6 @@ components:
         X-RateLimit-Reset:
           schema:
             type: integer
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-    Unauthorized:
-      description: Missing or invalid API token
       content:
         application/json:
           schema:
