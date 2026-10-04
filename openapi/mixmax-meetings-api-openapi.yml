@@ -69,15 +69,6 @@ components:
             properties:
               message:
                 type: string
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
     RateLimited:
       description: Rate limit exceeded (120 requests per 60s window per IP and user). Inspect X-RateLimit-Limit, X-RateLimit-Remaining and X-RateLimit-Reset.
       headers:
@@ -90,6 +81,15 @@ components:
         X-RateLimit-Reset:
           schema:
             type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
