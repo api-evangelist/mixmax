@@ -242,6 +242,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: RateLimits
+  url: rate-limits/mixmax-rate-limits.yml
 - type: MCPServer
   url: mcp/mixmax-mcp.yml
 - type: Overlay
