@@ -60,8 +60,8 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid API token
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -88,8 +88,8 @@ components:
             properties:
               message:
                 type: string
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid API token
       content:
         application/json:
           schema:
