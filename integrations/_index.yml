@@ -82,7 +82,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: mixmax-fivetran
   label: Fivetran
@@ -108,7 +108,7 @@
     - connectors/applications/mixmax
     vendor_link: https://mixmax.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: mixmax-google-workspace-own
   label: Google Workspace (own)
