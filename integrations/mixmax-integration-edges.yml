@@ -4,6 +4,7 @@ source:
 - https://zapier.com/apps/mixmax/integrations
 - https://composio.dev/toolkits/mixmax
 checked:
+- google-workspace/integrations/google-workspace-integration-edges.yml
 - https://composio.dev/toolkits/mixmax
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
@@ -14,6 +15,7 @@ checked:
 - https://n8n.io/integrations/mixmax/
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/mixmax/integrations
+- zoom/integrations/zoom-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -143,4 +145,38 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/mixmax_sales_engagement_for_gmail/445090274054
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Mixmax Sales Engagement for Gmail™
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/QYQJq__YTDqpfbLJMCp6bQ
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Mixmax
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
 templates: []
