@@ -13,6 +13,7 @@ checked:
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
+- https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/
 - https://monid.ai/tools/mixmax
 - https://n8n.io/integrations/mixmax/
 - https://proxy.golang.org
@@ -45,113 +46,6 @@ marketplace_apps:
   - key: MIXMAX_ADD_SNIPPET_TO_TAG
   - key: MIXMAX_ADD_TEAM_MEMBERS
 edges:
-- partner_name: Zapier
-  partner: zapier
-  partner_match: aggregator
-  type: marketplace
-  marketplace: zapier-directory
-  channel: ipaas-listing
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://zapier.com/apps/mixmax/integrations
-  category: null
-  contract_reference:
-    register: Zapier app directory (zapier.com/api/v4/apps)
-    spec_file: null
-    role: ipaas-connector:zapier
-    registered_name: Mixmax
-    matched_domain: mixmax.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: mixmax
-    beta: false
-    builder: unknown (not in the directory record)
-  detected_by: sweep-workflow-automation.py
-  first_seen: '2026-10-15'
-- partner_name: Pipedream
-  partner: pipedream
-  partner_match: aggregator
-  type: marketplace
-  marketplace: pipedream-components
-  channel: open-source-node
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/mixmax
-  category: null
-  contract_reference:
-    register: Pipedream components (PipedreamHQ/pipedream components/)
-    spec_file: null
-    role: ipaas-connector:pipedream
-    registered_name: mixmax
-    matched_domain: mixmax.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: mixmax
-    actions: true
-    sources: true
-    builder: Pipedream repo (component)
-  detected_by: sweep-workflow-automation.py
-  first_seen: '2026-10-15'
-- partner_name: Airbyte
-  partner: airbyte
-  partner_match: aggregator
-  type: marketplace
-  marketplace: airbyte-registry
-  channel: elt-connector
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://docs.airbyte.com/integrations/sources/mixmax
-  category: null
-  contract_reference:
-    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
-    spec_file: null
-    role: elt-connector:airbyte-community
-    registered_name: MixMax
-    matched_domain: mixmax.com
-    matched_by: domain
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connectors:
-    - airbyte/source-mixmax
-    support_level:
-    - community
-    release_stage:
-    - alpha
-    in_cloud: true
-    builder: unknown (community connector; contributor not in the record)
-  detected_by: sweep-data-integration.py
-  first_seen: '2026-10-18'
-- partner_name: Fivetran
-  partner: fivetran
-  partner_match: aggregator
-  type: marketplace
-  marketplace: fivetran-connectors
-  channel: elt-connector
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://fivetran.com/docs/connectors/applications/mixmax
-  category: null
-  contract_reference:
-    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
-    spec_file: null
-    role: elt-connector:fivetran
-    registered_name: Mixmax
-    matched_domain: mixmax.com
-    matched_by: domain
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connector_paths:
-    - connectors/applications/mixmax
-    vendor_link: https://mixmax.com/
-    builder: Fivetran
-  detected_by: sweep-data-integration.py
-  first_seen: '2026-10-18'
 - partner_name: Google Workspace (own)
   partner: google-workspace
   partner_match: mirror
@@ -216,4 +110,111 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Airbyte
+  partner: airbyte
+  partner_match: aggregator
+  type: marketplace
+  marketplace: airbyte-registry
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://docs.airbyte.com/integrations/sources/mixmax
+  category: null
+  contract_reference:
+    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
+    spec_file: null
+    role: elt-connector:airbyte-community
+    registered_name: MixMax
+    matched_domain: mixmax.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connectors:
+    - airbyte/source-mixmax
+    support_level:
+    - community
+    release_stage:
+    - alpha
+    in_cloud: true
+    builder: unknown (community connector; contributor not in the record)
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: Fivetran
+  partner: fivetran
+  partner_match: aggregator
+  type: marketplace
+  marketplace: fivetran-connectors
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://fivetran.com/docs/connectors/applications/mixmax
+  category: null
+  contract_reference:
+    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
+    spec_file: null
+    role: elt-connector:fivetran
+    registered_name: Mixmax
+    matched_domain: mixmax.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connector_paths:
+    - connectors/applications/mixmax
+    vendor_link: https://mixmax.com/
+    builder: Fivetran
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://zapier.com/apps/mixmax/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Mixmax
+    matched_domain: mixmax.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: mixmax
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
+- partner_name: Pipedream
+  partner: pipedream
+  partner_match: aggregator
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/mixmax
+  category: null
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: mixmax
+    matched_domain: mixmax.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: mixmax
+    actions: true
+    sources: true
+    builder: Pipedream repo (component)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 templates: []
