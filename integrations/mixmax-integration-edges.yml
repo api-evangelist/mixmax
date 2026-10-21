@@ -24,6 +24,7 @@ checked:
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/mixmax/integrations
 - zoom/integrations/zoom-integration-edges.yml
+- hubspot/integrations/hubspot-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -46,40 +47,6 @@ marketplace_apps:
   - key: MIXMAX_ADD_SNIPPET_TO_TAG
   - key: MIXMAX_ADD_TEAM_MEMBERS
 edges:
-- partner_name: Google Workspace (own)
-  partner: google-workspace
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://workspace.google.com/marketplace/app/mixmax_sales_engagement_for_gmail/445090274054
-  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
-  apps:
-  - Mixmax Sales Engagement for Gmail™
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Google Workspace app
-- partner_name: Zoom (own)
-  partner: zoom
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.zoom.us/apps/QYQJq__YTDqpfbLJMCp6bQ
-  mirror_of: zoom/integrations/zoom-integration-edges.yml
-  apps:
-  - Mixmax
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Zoom app
 - partner_name: npm registry
   partner: npm
   partner_match: register
@@ -217,4 +184,55 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/mixmax_sales_engagement_for_gmail/445090274054
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Mixmax Sales Engagement for Gmail™
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/QYQJq__YTDqpfbLJMCp6bQ
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Mixmax
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/mixmax-automated-workflows
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Mixmax Automated Workflows
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SALES_ENABLEMENT
 templates: []
