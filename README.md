@@ -64,6 +64,157 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Mixmax is a company surfaced as a portfolio company of creandum and added to the API Evangelist network as a stub for enrichment. Sector: saas. This profile is a lead awaiting the enrichment pipeline.
+Mixmax is an AI-native sales engagement and execution platform that lives inside Gmail and Outlook, helping sales, customer success, recruiting, and other relationship-driven teams run their entire customer journey without context-switching. It combines email tracking and templates, multi-channel sequences, one-click scheduling, CRM automation, engagement signals, and Meeting Copilot summaries and transcripts. Mixmax exposes a public REST API (api.mixmax.com/v1) for lightweight real-time access to contacts, contact groups, sequences and recipients, file requests, meeting summaries and transcripts, and snippet tags, authenticated with an API token, plus message integrations and Sidebar/Widget SDKs for extending the product surface. Since April 2026 Mixmax also runs a first-party remote MCP server at mcp.mixmax.com/mcp — read-only, OAuth 2.0 with PKCE against its own OpenID Connect provider, scoped meetings:read — together with six installable Claude Skills, a rule-driven incoming and outgoing webhook surface with a documented event catalog, and published per-tier pricing.
 
-Backed by: creandum — https://www.mixmax.com/
+**Areas:** Company · Software-as-a-Service · MCP · Agents · Webhook · Authentication · Sales Engagement · Email · Sales · CRM · Productivity · Meetings
+
+## Mixmax on APIs.io
+
+Everything profiled for Mixmax is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mixmax/](https://apis.io/providers/mixmax/)** — or go straight to one of the APIs or properties below.
+
+### APIs (6)
+
+- [Mixmax Contact Groups API](https://apis.io/apis/mixmax/mixmax-contact-groups-api/) — Contact groups you own or that are shared with you — deprecated
+- [Mixmax Contacts API](https://apis.io/apis/mixmax/mixmax-contacts-api/) — Mixmax Contacts (people you've emailed) — deprecated resource group
+- [Mixmax File Requests API](https://apis.io/apis/mixmax/mixmax-file-requests-api/) — File requests you've sent out
+- [Mixmax Meetings API](https://apis.io/apis/mixmax/mixmax-meetings-api/) — Meeting Copilot summaries and transcripts (requires mixmaxApi feature)
+- [Mixmax Sequences API](https://apis.io/apis/mixmax/mixmax-sequences-api/) — Sequences you have access to, and their recipients
+- [Mixmax Snippet Tags API](https://apis.io/apis/mixmax/mixmax-snippet-tags-api/) — Snippet tag management
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Mixmax Webhooks](https://apis.io/asyncapis/mixmax/mixmax-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [mixmax](https://apis.io/servers/mixmax/mixmax/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Mixmax Agentic Access](https://apis.io/agentic-access/mixmax/mixmax-agentic-access/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Mixmax REST Contact Groups API](https://apis.io/collections/mixmax/open-mixmax-contact-groups-api/)
+- [Mixmax REST Contact Groups Contacts API](https://apis.io/collections/mixmax/open-mixmax-contacts-api/)
+- [Mixmax REST Contact Groups File Requests API](https://apis.io/collections/mixmax/open-mixmax-file-requests-api/)
+- [Mixmax REST Contact Groups Meetings API](https://apis.io/collections/mixmax/open-mixmax-meetings-api/)
+- [Mixmax REST Contact Groups Sequences API](https://apis.io/collections/mixmax/open-mixmax-sequences-api/)
+- [Mixmax REST Contact Groups Snippet Tags API](https://apis.io/collections/mixmax/open-mixmax-snippet-tags-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Mixmax Openapi Overlay](https://apis.io/overlays/mixmax/mixmax-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Mixmax Authentication](https://apis.io/security/mixmax/mixmax-authentication/)
+- [Mixmax Domain Security](https://apis.io/security/mixmax/mixmax-domain-security/)
+- [Mixmax Trust Center](https://apis.io/security/mixmax/mixmax-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Mixmax Scopes](https://apis.io/scopes/mixmax/mixmax-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Mixmax Plans Pricing](https://apis.io/plans/mixmax/mixmax-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Mixmax Rate Limits](https://apis.io/rate-limits/mixmax/mixmax-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.mixmax.com/)
+- [Documentation](https://developer.mixmax.com/docs/getting-started)
+- [Getting started](https://developer.mixmax.com/reference/getting-started-with-the-api)
+- [API reference](https://developer.mixmax.com/reference/getting-started-with-the-api)
+- [Pricing](https://www.mixmax.com/pricing)
+- [Sign up](https://app.mixmax.com/signup)
+- [Support](https://success.mixmax.com/)
+- [Blog](https://www.mixmax.com/blog)
+- [Compliance](https://www.mixmax.com/security)
+- [Terms of service](https://www.mixmax.com/legal/terms-of-service)
+- [Privacy policy](https://www.mixmax.com/legal/privacy-policy)
+- [GitHub](https://github.com/mixmaxhq)
+- [Status](https://status.mixmax.com/)
+
+## API Evangelist rating
+
+**Kin Score 54.8** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 25.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 92.1 |
+
+**Agent readiness 50.0** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | verified |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 39.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mixmax/](https://apis.io/providers/mixmax/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Mixmax: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mixmax/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
